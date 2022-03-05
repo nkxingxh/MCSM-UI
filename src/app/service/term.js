@@ -67,11 +67,14 @@ export function initTerminalWindow(elem, fontSize = 13) {
   // 设置终端宽度，报险起见设置两次
   term.fitAddon = fitAddon;
 
-  term.writeln(
+  /*term.writeln(
     `${termColor.TERM_TEXT_GOLD}MCSManager Terminal ${termColor.TERM_TEXT_DARK_AQUA}[Powered by Term.js]`
   );
   term.writeln(
     `${termColor.TERM_TEXT_GOLD}Copyright Suwings All rights reserved${termColor.TERM_RESET}\r\n`
+  );*/
+  term.writeln(
+    `${termColor.TERM_TEXT_GOLD}控制台历史记录加载中...${termColor.TERM_RESET}\r\n`
   );
   term.info = (msg) => {
     term.writeln(`\r\n[MCSManager] [INFO] ${msg}`);

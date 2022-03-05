@@ -70,7 +70,7 @@ export default {
 }
 .guser-top-info-text > i {
   font-size: 100px;
-  color: #d1d1d11c;
+  color: #31a0ff80;
   position: absolute;
   right: 2px;
   bottom: 4px;

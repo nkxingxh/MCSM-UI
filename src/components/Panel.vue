@@ -20,7 +20,7 @@
 -->
 
 <template>
-  <el-card class="box-card-shadow" :body-style="bodyStyle || 'padding:12px;'" :style="style">
+  <el-card class="box-card-shadow" :body-style="bodyStyle || 'padding:12px;'" :style="style" style="background: rgb(255 255 255 / 60%);">
     <div class="box-card-title" v-if="$slots.title">
       <slot name="title"></slot>
     </div>

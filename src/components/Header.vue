@@ -24,7 +24,7 @@
     v-if="isTopPermission"
     class="box-card"
     body-style="padding: 12px;"
-    style="margin-bottom: 20px; border-radius: 4px"
+    style="margin-bottom: 20px; border-radius: 4px; background: #ffffffad;"
   >
     <el-row>
       <el-col :span="12">

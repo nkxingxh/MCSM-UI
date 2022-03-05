@@ -876,8 +876,8 @@ export default {
 
 <style scoped>
 .terminal-wrapper {
-  background-color: rgb(30, 30, 30);
-  padding: 4px;
+  /* background-color: rgb(30, 30, 30); */
+  /* padding: 4px; */
   border-radius: 4px;
   /* overflow: hidden; */
 }

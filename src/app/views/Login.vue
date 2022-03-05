@@ -42,7 +42,7 @@
       <template #default>
         <form action="/login" method="post">
           <div style="font-size: 24px; font-weight: 600">身份验证</div>
-          <p>使用服务器的 MCSManager 账号登录到面板</p>
+          <p>使用服务器的管理账号登录到面板</p>
           <form action="/" method="post">
             <div style="margin-top: 22px">
               <div>
@@ -90,14 +90,21 @@
                   {{ loginText }}
                 </el-button>
               </div>
+
               <div class="login-info-wrapper row-mt">
                 <div>
-                  <span class="color-gray"
-                    >版权所有 2022
-                    <a target="black" href="https://github.com/Suwings">Suwings</a></span
-                  >
+                  <span class="color-gray">由 XyunCloud 强力驱动</span>
                 </div>
               </div>
+
+              <div class="login-info-wrapper row-mt">
+                <div>
+                  <span class="color-gray">
+                    © 2022 <a target="black" href="https://github.com/Suwings">Suwings</a>
+                  </span>
+                </div>
+              </div>
+              
             </div>
           </form>
         </form>
@@ -332,6 +339,11 @@ export default {
 }
 
 #login-panel-wrapper {
+  background-position: top !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-image: url(https://www.nkxingxh.top/backgrounds/rand.php) !important;
+
   position: fixed;
   z-index: 999;
   top: 0px;

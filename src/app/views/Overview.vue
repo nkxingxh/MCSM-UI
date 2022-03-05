@@ -22,7 +22,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="24">
-      <Panel v-loading="loading">
+      <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
         <template #title>面板端详细数据</template>
         <template #default>
           <el-row :gutter="20">
@@ -50,6 +50,7 @@
               :value="`${valueCard.availableDaemon}/${valueCard.totalDaemon}`"
               style="height: 260px"
               font-class="el-icon-s-data"
+              
             >
             </ValueCard>
           </el-col>
@@ -86,7 +87,7 @@
         </el-row>
       </div>
 
-      <Panel v-loading="loading">
+      <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
         <template #title>分布式服务总览</template>
         <template #default>
           <p>
@@ -139,7 +140,7 @@
       </Panel>
       <el-row :gutter="20">
         <el-col :md="12" :offset="0">
-          <Panel v-loading="loading">
+          <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
             <template #title>面板端接口请求量</template>
             <template #default>
               <p>每1分钟统计间隔，总计1小时的请求历史</p>
@@ -150,7 +151,7 @@
           </Panel>
         </el-col>
         <el-col :md="12" :offset="0">
-          <Panel v-loading="loading">
+          <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
             <template #title>面板端 CPU 使用率</template>
             <template #default>
               <p>每10秒统计间隔，总十分钟的 CPU 历史使用率</p>
@@ -163,7 +164,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :md="12" :offset="0">
-          <Panel v-loading="loading">
+          <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
             <template #title>分布式实例运行量</template>
             <template #default>
               <p>每1分钟统计间隔，总计1小时的实例状态历史</p>
@@ -174,7 +175,7 @@
           </Panel>
         </el-col>
         <el-col :md="12" :offset="0">
-          <Panel v-loading="loading">
+          <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
             <template #title>面板端内存使用率</template>
             <template #default>
               <p>每10秒统计间隔，总十分钟的内存历史使用率</p>
