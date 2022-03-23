@@ -166,6 +166,8 @@
       <span>MCSManager is released under the AGPL-3.0 License</span>
       <br />
       <span>Copyright © 2022 Suwings</span>
+      <br />
+      <span style="color: #0095ff">由 XyunCloud 强力驱动</span>
     </div>
   </div>
 

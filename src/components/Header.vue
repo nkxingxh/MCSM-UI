@@ -79,7 +79,7 @@
     v-if="!isTopPermission"
     class="box-card page-header-img"
     body-style="padding: 12px;"
-    style="margin-bottom: 20px; border-radius: 4px; color: white"
+    style="margin-bottom: 20px; border-radius: 4px; color: white; background: rgba(255, 255, 255, 0.6);"
   >
     <div class="flex flex-space-between">
       <router-link to="/home">
@@ -177,7 +177,7 @@ export default {
 }
 
 .page-header-img {
-  background: url("../assets/side.png");
+  /*background: url("../assets/side.png");*/
   background-position-y: 40px;
   transition: all 1s;
 }
@@ -187,7 +187,8 @@ export default {
 }
 
 .header-a {
-  color: rgb(235, 235, 235);
+  /*color: rgb(235, 235, 235);*/
+  color: #ff00b1;
   font-weight: 400;
 }
 </style>
