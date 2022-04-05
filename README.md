@@ -10,7 +10,11 @@
 
 **适用于 MCSManager 的 Web UI 项目。**
 
+**这个分支简单修改了背景与卡片透明度等。**
+
 项目主仓库请前往：[https://github.com/MCSManager/MCSManager](https://github.com/MCSManager/MCSManager)
+
+自动构建状态: [![Node.js CI](https://github.com/nkxingxh/MCSM-UI/actions/workflows/CI.yml/badge.svg)](https://github.com/nkxingxh/MCSM-UI/actions/workflows/CI.yml)
 
 <br />
 
