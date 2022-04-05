@@ -107,8 +107,8 @@
         size="mini"
         v-loading="info.loading"
       >
-        <el-table-column prop="nickname" label="实例昵称" min-width="240"></el-table-column>
-        <el-table-column label="运行状态">
+        <el-table-column prop="nickname" label="Instance name" min-width="240"></el-table-column>
+        <el-table-column label="Running state">
           <template #default="scope">
             <div class="color-gray" v-if="scope.row.status == 0">
               <i class="el-icon-video-pause"></i>

@@ -41,8 +41,8 @@
     <Panel id="login-panel" body-style="padding:44px;" v-loading="loading">
       <template #default>
         <form action="/login" method="post">
-          <div style="font-size: 24px; font-weight: 600">身份验证</div>
-          <p>使用服务器的管理账号登录到面板</p>
+          <div style="font-size: 24px; font-weight: 600">Log in</div>
+          <p>Log in to the panel using the management account of the server</p>
           <form action="/" method="post">
             <div style="margin-top: 22px">
               <div>
@@ -50,7 +50,7 @@
                   type="text"
                   name="mcsm_username"
                   v-model="form.username"
-                  placeholder="账号"
+                  placeholder="Username"
                   autocomplete="on"
                   :disabled="close"
                   @keyup.enter="submit"
@@ -65,7 +65,7 @@
                   type="password"
                   name="mcsm_password"
                   v-model="form.password"
-                  placeholder="密码"
+                  placeholder="Password"
                   autocomplete="on"
                   :disabled="close"
                   @keyup.enter="submit"
@@ -152,7 +152,7 @@ export default {
       },
       close: false,
       closeWindow: false,
-      loginText: "登录",
+      loginText: "Login",
       loading: false,
       cause: ""
     };
@@ -170,7 +170,7 @@ export default {
         }
         this.loading = true;
         this.cause = "";
-        this.loginText = "登录中";
+        this.loginText = "Logging in";
         await sleep(600);
         const res = await request({
           method: "POST",

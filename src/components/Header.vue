@@ -38,11 +38,11 @@
           :to="{ path: item.path }"
           :key="index"
         >
-          <span class="only-pc-display">控制面板 / {{ item.title }}</span>
+          <span class="only-pc-display">Control Panel / {{ item.title }}</span>
         </div>
         <!-- 电脑端显示全部内容 -->
         <!-- <el-breadcrumb separator="/" style="line-height: 28px" class="only-pc-display">
-          <el-breadcrumb-item :to="{ path: '/overview' }">控制面板</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/overview' }">Control Panel</el-breadcrumb-item>
           <el-breadcrumb-item
             v-for="(item, index) in breadcrumbsList"
             :to="{ path: item.path }"

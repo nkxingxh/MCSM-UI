@@ -236,7 +236,7 @@
         </template>
       </Panel>
       <Panel>
-        <template #title>详细信息</template>
+        <template #title>Detailed information</template>
         <template #default>
           <div v-if="!available">
             <el-skeleton :rows="5" animated />

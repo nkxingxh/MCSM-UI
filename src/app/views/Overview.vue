@@ -23,7 +23,7 @@
   <el-row :gutter="20">
     <el-col :span="24">
       <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-        <template #title>面板端详细数据</template>
+        <template #title>Panel end details</template>
         <template #default>
           <el-row :gutter="20">
             <el-col :xs="12" :md="6" v-for="(item, index) in computerInfoA" :key="index">
@@ -45,8 +45,8 @@
         <el-row :gutter="20">
           <el-col :md="6" :xs="12" :offset="0">
             <ValueCard
-              title="守护进程状态"
-              sub-title="已正确连接数 / 已配置总数"
+              title="Daemon status"
+              sub-title="Connected / Total"
               :value="`${valueCard.availableDaemon}/${valueCard.totalDaemon}`"
               style="height: 260px"
               font-class="el-icon-s-data"
@@ -56,8 +56,8 @@
           </el-col>
           <el-col :md="6" :xs="12" :offset="0">
             <ValueCard
-              title="实例运行状态"
-              sub-title="正在运行数 / 全部实例总数"
+              title="Instance status"
+              sub-title="Running / Total"
               :value="`${valueCard.runningInstance}/${valueCard.totalInstance}`"
               style="height: 260px"
               font-class="el-icon-s-promotion"
@@ -66,8 +66,8 @@
           </el-col>
           <el-col :md="6" :xs="12" :offset="0">
             <ValueCard
-              title="用户登录次数"
-              sub-title="登录失败次数 : 登录成功次数"
+              title="User login times"
+              sub-title="Failed : Successful"
               :value="`${valueCard.failedLogin}:${valueCard.Logined}`"
               style="height: 260px"
               font-class="el-icon-upload"
@@ -76,8 +76,8 @@
           </el-col>
           <el-col :md="6" :xs="12" :offset="0">
             <ValueCard
-              title="系统负载"
-              sub-title="面板所在主机 CPU，RAM 百分比"
+              title="System load"
+              sub-title="CPU & RAM occupancy at panel end"
               :value="`${valueCard.cpu}% ${valueCard.mem}%`"
               style="height: 260px"
               font-class="el-icon-s-flag"

@@ -56,7 +56,7 @@ const routes = [
   },
   {
     path: "/overview",
-    name: "数据监控",
+    name: "Overview",
     component: Overview
   },
   {
@@ -66,42 +66,42 @@ const routes = [
   },
   {
     path: "/instances",
-    name: "应用实例",
+    name: "Instances",
     component: Instances
   },
   {
     path: "/services",
-    name: "守护进程管理",
+    name: "Services",
     component: Services
   },
   {
     path: "/private",
-    name: "个人信息",
+    name: "User Detail",
     component: UserDetail
   },
   {
     path: "/users",
-    name: "用户管理",
+    name: "Users",
     component: Users
   },
   {
     path: "/analysis",
-    name: "面板数据分析",
+    name: "Analysis",
     component: Analysis
   },
   {
     path: "/news",
-    name: "更新与通知",
+    name: "News",
     component: News
   },
   {
     path: "/container",
-    name: "镜像与容器",
+    name: "Container",
     component: Container
   },
   {
     path: "/image/:serviceUuid",
-    name: "镜像管理",
+    name: "Image Manager",
     component: ImageManager
   },
   {
