@@ -27,7 +27,7 @@
         <div>
           <ItemGroup>
             <el-button type="success" size="small" @click="toNewImage"> 新建镜像 </el-button>
-            <el-button type="" size="small" @click="refresh"> 刷新 </el-button>
+            <el-button type="" size="small" @click="refresh"> Refresh </el-button>
             <el-button type="" size="small" @click="back"> 返回 </el-button>
           </ItemGroup>
         </div>

@@ -49,7 +49,7 @@
               style="width: 160px"
             ></el-input>
             <el-button size="small" @click="refresh">
-              <i class="el-icon-refresh"></i> 刷新
+              <i class="el-icon-refresh"></i> Refresh
             </el-button>
           </ItemGroup>
         </el-col>

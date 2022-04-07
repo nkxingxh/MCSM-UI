@@ -21,17 +21,17 @@
 
 <template>
   <Panel>
-    <template #title>配置操作</template>
+    <template #title>Configuration operation</template>
     <template #default>
       <div class="flex flex-space-between flex-align-items-center">
         <div>
           <ItemGroup>
-            <el-button type="success" size="small" @click="updateSettings">更新配置</el-button>
-            <el-button type="" size="small" @click="refresh">刷新</el-button>
+            <el-button type="success" size="small" @click="updateSettings">Update</el-button>
+            <el-button type="" size="small" @click="refresh">Refresh</el-button>
           </ItemGroup>
         </div>
         <span class="color-gray hidden-md-and-down"
-          >部分配置可能需要重启面板才能生效&nbsp;&nbsp;</span
+          >Some configurations may need to restart the panel to take effect&nbsp;&nbsp;</span
         >
       </div>
     </template>
@@ -39,7 +39,7 @@
 
   <div v-if="settings">
     <Panel>
-      <template #title>基础设置</template>
+      <template #title>Basic settings</template>
       <template #default>
         <el-row :gutter="20">
           <el-col :md="12">
@@ -48,10 +48,10 @@
             </div> -->
             <div class="config-item">
               <div class="sub-title">
-                <p class="sub-title-title">面板访问端口</p>
-                <p class="sub-title-info">浏览器访问网页面板的端口，必须防火墙放行此端口。</p>
+                <p class="sub-title-title">Panel access port</p>
+                <p class="sub-title-info">The port for the browser to access the web panel, which must be released by the firewall.</p>
               </div>
-              <el-input placeholder="请必须填入数字" v-model="settings.httpPort"> </el-input>
+              <el-input placeholder="Please fill in the number" v-model="settings.httpPort"> </el-input>
             </div>
             <!-- <div class="config-item">
               <div class="sub-title">
@@ -64,10 +64,10 @@
             </div> -->
             <div class="config-item">
               <div class="sub-title">
-                <p class="sub-title-title">面板绑定IP</p>
-                <p class="sub-title-info">一般情况请保持默认值，一般适用于多个IP的场景。</p>
+                <p class="sub-title-title">Panel listening IP</p>
+                <p class="sub-title-info">Generally, please keep the default value, which is generally applicable to multiple IP scenarios.</p>
               </div>
-              <el-input placeholder="默认 0.0.0.0 | 可不填" v-model="settings.httpIp"> </el-input>
+              <el-input placeholder="The default is  0.0.0.0 | Not required" v-model="settings.httpIp"> </el-input>
             </div>
           </el-col>
 
@@ -75,11 +75,11 @@
           <el-col :md="8">
             <div>
               <div class="sub-title">
-                <p class="sub-title">相关参考链接</p>
+                <p class="sub-title">Related reference links</p>
                 <p class="sub-title-info">
-                  面板的大部分设置十分重要，在一般情况下，绝大部分参数都无需更改，如果某个参数您并不知晓代表什么，那么建议您不要对其进行修改。
+                  Most settings of the panel are very important. In general, most parameters do not need to be changed. If you do not know what a parameter represents, it is recommended that you do not modify it.
                 </p>
-                <p class="sub-title-info">或者，您可以考虑阅读以下链接。</p>
+                <p class="sub-title-info">Alternatively, you may consider reading the following links.</p>
               </div>
               <!-- <a class="alink" href="http://">
                 <p>面板设置配置手册</p>
@@ -93,7 +93,7 @@
       </template>
     </Panel>
     <Panel>
-      <template #title>限制与安全</template>
+      <template #title>Restrictions and safety</template>
       <template #default>
         <el-row :gutter="20">
           <el-col :md="12">
@@ -109,7 +109,7 @@
             </div> -->
             <div class="config-item">
               <div class="sub-title">
-                <p class="sub-title-title">跨域请求 API 接口</p>
+                <p class="sub-title-title">Cross domain request API interface / 跨域请求 API 接口</p>
                 <p class="sub-title-info">
                   HTTP 响应将会加入 access-control-allow-origin:
                   *，可能会降低安全性，但是会提高开发扩展性。

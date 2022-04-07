@@ -28,7 +28,7 @@
           <el-button type="success" size="small" @click="openNewServiceDialog">
             新增远程守护进程
           </el-button>
-          <el-button size="small" @click="refresh">刷新</el-button>
+          <el-button size="small" @click="refresh">Refresh</el-button>
         </ItemGroup>
         <ItemGroup>
           <el-button size="small" @click="openPrinciplePanel">了解工作原理</el-button>

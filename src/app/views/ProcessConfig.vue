@@ -26,7 +26,7 @@
       <el-row :gutter="20">
         <el-col :span="24" :offset="0">
           <ItemGroup class="row-mb">
-            <el-button type="primary" size="small" @click="rf">刷新</el-button>
+            <el-button type="primary" size="small" @click="rf">Refresh</el-button>
             <el-button size="small" @click="back">回到控制台</el-button>
           </ItemGroup>
           <div class="sub-title">

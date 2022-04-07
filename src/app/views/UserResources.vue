@@ -85,7 +85,7 @@
             <i class="el-icon-document-checked"></i> 保存数据
           </el-button>
           <el-button size="small" @click="refresh">
-            <i class="el-icon-refresh"></i> 刷新
+            <i class="el-icon-refresh"></i> Refresh
           </el-button>
         </ItemGroup>
       </div>

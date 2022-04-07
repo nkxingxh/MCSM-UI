@@ -116,17 +116,17 @@ const routes = [
   },
   {
     path: "/settings",
-    name: "面板设置",
+    name: "Panel Settings",
     component: Settings
   },
   {
     path: "/new_image/:serviceUuid",
-    name: "创建镜像",
+    name: "Create Image",
     component: NewImage
   },
   {
     path: "/terminal/:serviceUuid/:instanceUuid",
-    name: "实例控制台",
+    name: "Terminal",
     component: Terminal
   },
   {

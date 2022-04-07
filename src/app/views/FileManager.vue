@@ -30,7 +30,7 @@
               <i class="el-icon-pie-chart"></i> 回到控制台
             </el-button>
             <el-button size="small" @click="refresh">
-              <i class="el-icon-refresh"></i> 刷新
+              <i class="el-icon-refresh"></i> Refresh
             </el-button>
           </ItemGroup>
         </el-col>
