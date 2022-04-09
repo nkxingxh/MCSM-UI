@@ -25,7 +25,7 @@
     <template #default>
       <ItemGroup>
         <el-button type="success" size="small" @click="toCreate">新增计划任务</el-button>
-        <el-button size="small" @click="refresh">刷新</el-button>
+        <el-button size="small" @click="refresh">Refresh</el-button>
         <el-button size="small" @click="back">回到控制台</el-button>
       </ItemGroup>
     </template>

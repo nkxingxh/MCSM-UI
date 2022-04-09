@@ -30,7 +30,7 @@
               <i class="el-icon-refresh"></i> 更新文件
             </el-button>
             <el-button size="small" @click="refresh">
-              <i class="el-icon-refresh"></i> 刷新
+              <i class="el-icon-refresh"></i> Refresh
             </el-button>
             <el-button size="small" @click="back" v-if="!backType">
               <i class="el-icon-pie-chart"></i> 回到文件列表

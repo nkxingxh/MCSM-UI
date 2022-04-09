@@ -21,7 +21,7 @@
 
 <template>
   <Panel>
-    <template #title>应用实例列表</template>
+    <template #title>Application instances list</template>
     <template #default>
       <el-row :gutter="20" justify="space-between" class="row-mb">
         <el-col :md="12" :offset="0">
@@ -49,29 +49,29 @@
               style="width: 160px"
             ></el-input>
             <el-button size="small" @click="refresh">
-              <i class="el-icon-refresh"></i> 刷新
+              <i class="el-icon-refresh"></i> Refresh
             </el-button>
           </ItemGroup>
         </el-col>
         <el-col :md="12" :offset="0">
           <ItemGroup style="text-align: right">
             <el-button size="small" type="success" @click="toNewInstance">
-              <i class="el-icon-plus"></i> 新建实例
+              <i class="el-icon-plus"></i> New instance
             </el-button>
-            <el-button size="small" type="primary" plain @click="batOpen">
-              <i class="el-icon-video-play"></i> 开启
+            <el-button size="small" @click="batOpen">
+              <i class="el-icon-video-play"></i> Start
             </el-button>
-            <el-button size="small" type="warning" plain @click="batStop">
-              <i class="el-icon-video-pause"></i> 关闭
+            <el-button size="small" @click="batStop">
+              <i class="el-icon-video-pause"></i> Stop
             </el-button>
-            <el-button size="small" type="warning" @click="batKill">
-              <i class="el-icon-video-pause"></i> 终止
+            <el-button size="small" @click="batKill">
+              <i class="el-icon-video-pause"></i> Terminate
             </el-button>
             <el-button size="small" type="danger" plain @click="batDelete(1)">
-              <i class="el-icon-delete"></i> 移除
+              <i class="el-icon-delete"></i> Remove
             </el-button>
             <el-button size="small" type="danger" @click="batDelete(2)">
-              <i class="el-icon-delete"></i> 删除
+              <i class="el-icon-delete"></i> Delete
             </el-button>
           </ItemGroup>
         </el-col>
@@ -135,7 +135,7 @@
           v-show="!notAnyInstance && currentRemoteUuid"
         >
           <el-table-column type="selection" width="55"> </el-table-column>
-          <el-table-column prop="nickname" label="实例昵称" min-width="240">
+          <el-table-column prop="nickname" label="Instance name" min-width="240">
             <template #default="scope">
               <div
                 @click="toInstance(scope.row.serviceUuid, scope.row.instanceUuid)"
@@ -145,7 +145,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="currentPlayers" label="详细信息" width="240">
+          <el-table-column prop="currentPlayers" label="Detailed information" width="240">
             <template #default="scope">
               <div>
                 <span v-if="scope.row.info && scope.row.info.currentPlayers >= 0">
@@ -157,37 +157,37 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="status" label="运行状态" width="120">
+          <el-table-column prop="status" label="Running state" width="120">
             <template #default="scope">
               <div class="color-gray" v-if="scope.row.status == 0">
                 <i class="el-icon-video-pause"></i>
-                <span> 未运行</span>
+                <span> Not running</span>
               </div>
               <div class="color-green" v-else-if="scope.row.status == 3">
                 <i class="el-icon-video-play"></i>
-                <span> 运行中</span>
+                <span> In operation</span>
               </div>
-              <span class="color-yellow" v-else-if="scope.row.status == 1">停止中</span>
-              <span class="color-yellow" v-else-if="scope.row.status == 2">启动中</span>
+              <span class="color-yellow" v-else-if="scope.row.status == 1">Stopping</span>
+              <span class="color-yellow" v-else-if="scope.row.status == 2">Starting</span>
 
-              <span class="color-red" v-else-if="scope.row.status == -1">忙碌</span>
-              <span class="color-red" v-else>忙碌</span>
+              <span class="color-red" v-else-if="scope.row.status == -1">busy</span>
+              <span class="color-red" v-else>busy</span>
             </template>
           </el-table-column>
-          <el-table-column prop="type" label="实例类型" width="140"></el-table-column>
-          <el-table-column label="操作" style="text-align: center" width="180">
+          <el-table-column prop="type" label="Instance type" width="140"></el-table-column>
+          <el-table-column label="Operations" style="text-align: center" width="180">
             <template #default="scope">
               <el-button
                 size="mini"
                 @click="editInstance(scope.row.serviceUuid, scope.row.instanceUuid)"
               >
-                设置
+                Config
               </el-button>
               <el-button
                 size="mini"
                 @click="toInstance(scope.row.serviceUuid, scope.row.instanceUuid)"
               >
-                管理
+                Console
               </el-button>
             </template>
           </el-table-column>

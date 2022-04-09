@@ -63,7 +63,7 @@
               </el-col>
               <el-col :md="24" class="row-mt">
                 <div class="sub-title">
-                  <div class="sub-title-title">实例类型</div>
+                  <div class="sub-title-title">Instance type</div>
                   <div class="sub-title-info">
                     不同类型会导致功能不同，若无需求类型，可以选择较为抽象的通用类型，列如 Java
                     通用版服务端

@@ -143,7 +143,7 @@
       <div class="flex flex-space-between flex-align-items-center">
         <div>
           <ItemGroup>
-            <el-button type="" size="small" @click="toProgress">刷新</el-button>
+            <el-button type="" size="small" @click="toProgress">Refresh</el-button>
             <el-button type="" size="small" @click="forward(1)">回到镜像选择</el-button>
           </ItemGroup>
         </div>

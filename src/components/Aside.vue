@@ -34,18 +34,18 @@
     <el-scrollbar>
       <Logo></Logo>
       <el-menu-item-group>
-        <template #title>基础功能</template>
+        <template #title>Basic</template>
         <el-menu-item key="/overview" index="/overview">
           <i class="el-icon-pie-chart"></i>
-          <template #title>数据监控</template>
+          <template #title>Home</template>
         </el-menu-item>
         <el-menu-item key="/instances" index="/instances">
           <i class="el-icon-coin"></i>
-          <template #title>应用实例</template>
+          <template #title>Instances</template>
         </el-menu-item>
         <el-menu-item key="/users" index="/users">
           <i class="el-icon-user"></i>
-          <template #title>用户管理</template>
+          <template #title>Users</template>
         </el-menu-item>
         <!-- <el-menu-item key="/home" index="/home">
           <i class="el-icon-pie-chart"></i>
@@ -53,14 +53,14 @@
         </el-menu-item> -->
       </el-menu-item-group>
       <el-menu-item-group>
-        <template #title>高级功能</template>
+        <template #title>Advanced</template>
         <el-menu-item key="/services" index="/services">
           <i class="el-icon-connection"></i>
-          <template #title>守护进程管理</template>
+          <template #title>Daemons</template>
         </el-menu-item>
         <el-menu-item key="/container" index="/container">
           <i class="el-icon-copy-document"></i>
-          <template #title>镜像与容器</template>
+          <template #title>Container</template>
         </el-menu-item>
         <!-- <el-menu-item key="/update" index="/update">
           <i class="el-icon-guide"></i>
@@ -68,17 +68,17 @@
         </el-menu-item> -->
       </el-menu-item-group>
       <el-menu-item-group>
-        <template #title>扩展功能</template>
+        <template #title>Extended</template>
         <el-menu-item key="/news" index="/news">
           <i class="el-icon-news"></i>
-          <template #title>更新与通知</template>
+          <template #title>Updates</template>
         </el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
-        <template #title>更多</template>
+        <template #title>More</template>
         <el-menu-item key="/settings" index="/settings">
           <i class="el-icon-setting"></i>
-          <template #title>设置</template>
+          <template #title>Settings</template>
         </el-menu-item>
       </el-menu-item-group>
 

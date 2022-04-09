@@ -30,18 +30,18 @@
           </div>
           <div v-else>
             <LineInfo>
-              <i class="el-icon-edit"></i> 昵称: {{ instanceInfo.config.nickname }}
+              <i class="el-icon-edit"></i> Name: {{ instanceInfo.config.nickname }}
             </LineInfo>
             <LineInfo>
-              <i class="el-icon-tickets"></i> 类型: {{ typeToText(instanceInfo.config.type) }}
+              <i class="el-icon-tickets"></i> Type: {{ typeToText(instanceInfo.config.type) }}
             </LineInfo>
             <LineInfo
-              ><i class="el-icon-finished"></i> 状态:
-              <span v-if="instanceInfo.status === -1" class="color-red">维护中</span>
-              <span v-else-if="instanceInfo.status === 0" class="color-gray">未运行</span>
-              <span v-else-if="instanceInfo.status === 1" class="color-yellow">停止中</span>
-              <span v-else-if="instanceInfo.status === 2" class="color-yellow">启动中</span>
-              <span v-else-if="instanceInfo.status === 3" class="color-green">正在运行</span>
+              ><i class="el-icon-finished"></i> Status:
+              <span v-if="instanceInfo.status === -1" class="color-red">Under maintenance</span>
+              <span v-else-if="instanceInfo.status === 0" class="color-gray">Not running</span>
+              <span v-else-if="instanceInfo.status === 1" class="color-yellow">Stopping</span>
+              <span v-else-if="instanceInfo.status === 2" class="color-yellow">Starting</span>
+              <span v-else-if="instanceInfo.status === 3" class="color-green">Running</span>
               <span v-else class="color-red">未知</span>
             </LineInfo>
             <LineInfo v-if="instanceInfo.info && instanceInfo.info.currentPlayers != -1">
@@ -55,12 +55,12 @@
         </template>
       </Panel>
       <Panel>
-        <template #title>实例控制组</template>
+        <template #title>Instance Control</template>
         <template #default>
           <div v-loading="busy">
             <el-row type="flex" justify="space-between" :gutter="10">
               <el-col :lg="24" v-show="instanceInfo.status === 0">
-                <el-popconfirm title="确定执行此操作？" @confirm="openInstance">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="openInstance">
                   <template #reference>
                     <el-button
                       icon="el-icon-video-play"
@@ -69,13 +69,13 @@
                       size="small"
                       plain
                     >
-                      开启实例
+                      Start
                     </el-button>
                   </template>
                 </el-popconfirm>
               </el-col>
               <el-col :lg="24" v-show="instanceInfo.status === 3">
-                <el-popconfirm title="确定执行此操作？" @confirm="stopInstance">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="stopInstance">
                   <template #reference>
                     <el-button
                       icon="el-icon-video-pause"
@@ -88,7 +88,7 @@
                 </el-popconfirm>
               </el-col>
               <el-col :lg="24" v-show="instanceInfo.status === 3">
-                <el-popconfirm title="确定执行此操作？" @confirm="restartInstance">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="restartInstance">
                   <template #reference>
                     <el-button
                       icon="el-icon-refresh-right"
@@ -102,7 +102,7 @@
                 </el-popconfirm>
               </el-col>
               <el-col :lg="24" v-show="instanceInfo.status > 0">
-                <el-popconfirm title="确定执行此操作？" @confirm="killInstance">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="killInstance">
                   <template #reference>
                     <el-button
                       icon="el-icon-switch-button"
@@ -117,7 +117,7 @@
                 </el-popconfirm>
               </el-col>
               <el-col :lg="24" v-show="instanceInfo.status === -1">
-                <el-popconfirm title="确定执行此操作？" @confirm="stopAsynchronousTask">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="stopAsynchronousTask">
                   <template #reference>
                     <el-button
                       icon="el-icon-switch-button"
@@ -135,7 +135,7 @@
                 :lg="24"
                 v-show="instanceInfo.config.updateCommand && instanceInfo.status === 0"
               >
-                <el-popconfirm title="确定执行此操作？" @confirm="updateInstace">
+                <el-popconfirm title="Are you sure you want to do this?" @confirm="updateInstace">
                   <template #reference>
                     <el-button
                       icon="el-icon-files"
@@ -235,7 +235,7 @@
         </template>
       </Panel>
       <Panel>
-        <template #title>详细信息</template>
+        <template #title>Detailed information</template>
         <template #default>
           <div v-if="!available">
             <el-skeleton :rows="5" animated />
@@ -256,19 +256,19 @@
               </div>
             </LineInfo>
             <LineInfo>
-              <i class="el-icon-date"></i> 到期时间:
+              <i class="el-icon-date"></i> Expiration time:
               {{
                 instanceInfo.config.endTime
                   ? new Date(instanceInfo.config.endTime).toLocaleDateString()
-                  : "无限制"
+                  : "unlimited"
               }}
             </LineInfo>
             <LineInfo>
-              <i class="el-icon-date"></i> 创建日期:
+              <i class="el-icon-date"></i> Creation date:
               {{ instanceInfo.config.createDatetime }}
             </LineInfo>
             <LineInfo>
-              <i class="el-icon-date"></i> 最后启动:
+              <i class="el-icon-date"></i> Last start:
               {{ instanceInfo.config.lastDatetime }}
             </LineInfo>
             <!-- <LineInfo><i class="el-icon-document"></i> 标签: {{ instanceInfo.tag }}</LineInfo> -->
@@ -281,14 +281,14 @@
       </Panel>
     </el-col>
     <el-col :md="18">
-      <Panel v-loading="!available" element-loading-text="连接中">
-        <template #title>实例操作终端</template>
+      <Panel v-loading="!available" element-loading-text="Connecting">
+        <template #title>Terminal</template>
         <template #default>
           <div class="terminal-wrapper">
             <div id="terminal-container" style="height: 560px; width: 100%"></div>
             <div id="terminal-input-wrapper">
               <el-input
-                placeholder="此处可输入命令，按回车键执行"
+                placeholder="Here you can enter a command and press enter to execute it"
                 prefix-icon="el-icon-arrow-right"
                 size="mini"
                 v-model="command"
@@ -301,7 +301,7 @@
         </template>
       </Panel>
       <Panel>
-        <template #title>命令历史</template>
+        <template #title>Command history</template>
         <template #default>
           <div v-if="commandhistory.length > 0">
             <ItemGroup>
@@ -319,7 +319,7 @@
             </ItemGroup>
           </div>
           <div v-else>
-            <p class="color-gray">暂无任何命令历史</p>
+            <p class="color-gray">No command history</p>
           </div>
         </template>
       </Panel>
@@ -331,9 +331,9 @@
           instanceInfo.info.playersChart.length
         "
       >
-        <template #title>面板端在线人数</template>
+        <template #title>Online population statistics</template>
         <template #default>
-          <p>每10分钟统计间隔，总10小时的在线人数趋势</p>
+          <p>Every 10 minutes, the trend of the total number of online people in 10 hours</p>
           <div class="echart-wrapper">
             <div id="echart-wrapper-players" style="width: 100%; height: 200px"></div>
           </div>
@@ -343,26 +343,30 @@
   </el-row>
 
   <Dialog v-model="pingConfigForm.is">
-    <template #title>实例状态查询协议配置</template>
+    <template #title>Status query configuration</template>
     <template #default>
       <div class="sub-title">
-        <p class="sub-title-title">更好的监控服务端状态</p>
+        <p class="sub-title-title">Better monitoring of server status</p>
         <p class="sub-title-info">
-          此功能将根据管理员设置的实例类型自动选择相应协议，获取服务端进程的具体信息和参数（如：游戏人数，版本等）
+          This function will automatically select the corresponding protocol <br>
+          according to the instance type set by the administrator to obtain <br>
+          the specific information and parameters of the server process <br>
+          (such as the number of games, version, etc.)
         </p>
       </div>
       <div class="sub-title">
-        <p class="sub-title-title">服务端访问地址</p>
+        <p class="sub-title-title">Server access address</p>
         <p class="sub-title-info">
-          必填，支持域名与IP地址，不填写则不会查询服务端信息，人数，版本等。
+          Required. Domain name and IP address are supported. <br>
+          If it is not filled in, the server information, number of people, version, etc. will not be queried.
         </p>
       </div>
-      <el-input v-model="pingConfigForm.ip" placeholder="列如：localhost" size="small"></el-input>
+      <el-input v-model="pingConfigForm.ip" placeholder="Such as: localhost" size="small"></el-input>
       <div class="sub-title row-mt">
-        <p class="sub-title-title">服务端访问端口</p>
-        <p class="sub-title-info">必填，仅可输入数字端口号</p>
+        <p class="sub-title-title">Server access port</p>
+        <p class="sub-title-info">Required, only numeric port number can be entered</p>
       </div>
-      <el-input v-model="pingConfigForm.port" placeholder="如 25565" size="small"></el-input>
+      <el-input v-model="pingConfigForm.port" placeholder="Such as: 25565" size="small"></el-input>
       <div class="row-mt">
         <ItemGroup>
           <el-button type="success" size="small" @click="instanceConfigUpdate">更新数据</el-button>

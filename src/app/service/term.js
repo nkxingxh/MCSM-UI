@@ -73,7 +73,7 @@ export function initTerminalWindow(elem, fontSize = 13) {
     `${termColor.TERM_TEXT_GOLD}Copyright Suwings All rights reserved${termColor.TERM_RESET}\r\n`
   );*/
   term.writeln(
-    `${termColor.TERM_TEXT_GOLD}控制台历史记录加载中...${termColor.TERM_RESET}\r\n`
+    `${termColor.TERM_TEXT_GOLD}Terminal history loading...${termColor.TERM_RESET}\r\n`
   );
   term.info = (msg) => {
     term.writeln(`\r\n[MCSManager] [INFO] ${msg}`);
