@@ -47,7 +47,7 @@
         </el-alert>
       </div>
       <div v-for="(item, index) in configs" :key="index" class="row-mb">
-        <BlockButton v-if="item.check" style="padding: 8px 0px">
+        <BlockButton v-if="item.check" style="padding: 8px 0px; background: rgba(255, 255, 255, 0.7);">
           <template #title
             >{{ item.fileName }}
             <el-tag size="mini" type="warning" v-if="item.conflict">存在同名文件</el-tag>
