@@ -15,6 +15,10 @@
 Please go to the main warehouse of the project / 项目主仓库请前往：
 [https://github.com/MCSManager/MCSManager](https://github.com/MCSManager/MCSManager)
 
+自动构建状态[![Node.js CI](https://github.com/nkxingxh/MCSM-UI/actions/workflows/CI.yml/badge.svg)](https://github.com/nkxingxh/MCSM-UI/actions/workflows/CI.yml)
+
+可前往 [Actions](https://github.com/nkxingxh/MCSM-UI/actions/workflows/CI.yml) 下载最新构建
+
 <br />
 
 ## Introduction to mcsmanager / MCSManager 简介
