@@ -95,13 +95,13 @@
                   {{ loginInfo }}
                 </span>
               </div>
-              
+
               <!--div class="login-info-wrapper row-mt">
                 <div>
                   <span class="color-gray">由 XyunCloud 强力驱动</span>
                 </div>
               </div-->
-
+              
               <div class="login-info-wrapper row-mt">
                 <div>
                   <span class="color-gray"
