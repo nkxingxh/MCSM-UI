@@ -10,7 +10,7 @@
 
 **适用于 MCSManager 的 Web UI 项目。**
 
-**这个分支简单修改了背景与卡片透明度等，并且添加了[英文版本](https://github.com/nkxingxh/MCSM-UI/tree/English)**
+**这个分支简单修改了背景与卡片透明度等，并且添加了[英文版本 (English version)](https://github.com/nkxingxh/MCSM-UI/tree/English)**
 
 项目主仓库请前往：[https://github.com/MCSManager/MCSManager](https://github.com/MCSManager/MCSManager)
 
