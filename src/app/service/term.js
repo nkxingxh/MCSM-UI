@@ -47,7 +47,7 @@ termColor.TERM_TEXT_UNDERLINE = "\x1B[4m"; // Underline §n
 termColor.TERM_TEXT_ITALIC = "\x1B[3m"; // Italic §o
 termColor.TERM_TEXT_B = "\x1B[1m";
 
-export function initTerminalWindow(elem, fontSize = 13) {
+export function initTerminalWindow(elem, fontSize = 12) {
   const term = new Terminal({
     rendererType: "canvas",
     convertEol: true,
@@ -63,7 +63,6 @@ export function initTerminalWindow(elem, fontSize = 13) {
   term.loadAddon(fitAddon);
   term.open(elem);
 
-  // 设置终端宽度，报险起见设置两次
   term.fitAddon = fitAddon;
 
   /*term.writeln(
