@@ -70,6 +70,18 @@
         </el-col>
       </el-row>
 
+      <div class="row-mt page-pagination">
+        <el-pagination
+          small
+          background
+          layout="prev, pager, next"
+          v-model:currentPage="pageParam.page"
+          :page-size="pageParam.pageSize"
+          :total="pageParam.total"
+          @current-change="currentChange"
+        />
+      </div>
+
       <div class="row-mt" v-show="percentComplete > 0">
         <el-progress
           :text-inside="true"
@@ -78,7 +90,11 @@
         ></el-progress>
       </div>
 
-      <p>当前目录: {{ currentDir }}</p>
+      <p>
+        <el-tag type="success" size="small">当前目录</el-tag>
+        &nbsp;
+        <el-tag type="info" size="small"> {{ currentDir }}</el-tag>
+      </p>
 
       <el-table
         :data="files"
@@ -179,6 +195,11 @@ export default {
         addr: "",
         password: ""
       },
+      pageParam: {
+        page: 1,
+        pageSize: 30,
+        total: 1
+      },
 
       paramPath: this.$route.query.path,
 
@@ -212,6 +233,7 @@ export default {
     async toDir(name) {
       try {
         const p = path.normalize(path.join(this.currentDir, name));
+        console.log("EN：", p);
         await this.list(p);
       } catch (error) {
         this.$message({ message: "错误，无法查看此目录或文件", type: "error" });
@@ -222,6 +244,12 @@ export default {
       const p = path.normalize(path.join(this.currentDir, "../"));
       await this.list(p);
     },
+
+    // 目录下一页或上一页事件
+    currentChange() {
+      this.toDir(".");
+    },
+
     // 目录 List 功能
     async list(cwd = ".") {
       this.$route.query.path = cwd;
@@ -231,11 +259,16 @@ export default {
         params: {
           remote_uuid: this.serviceUuid,
           uuid: this.instanceUuid,
-          target: cwd
+          target: cwd,
+          page: parseInt(this.pageParam.page) - 1,
+          page_size: this.pageParam.pageSize
         }
       });
+      const { items, total, page } = data;
       this.currentDir = path.normalize(cwd);
-      this.tableFilter(data);
+      this.tableFilter(items);
+      this.pageParam.total = total;
+      this.pageParam.page = page + 1;
     },
 
     // 表格数据处理
@@ -622,5 +655,9 @@ export default {
   line-height: 1.5;
   bottom: 20px;
   padding-left: 8px;
+}
+.page-pagination {
+  display: flex;
+  justify-content: right;
 }
 </style>

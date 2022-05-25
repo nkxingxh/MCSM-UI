@@ -282,9 +282,36 @@
     </el-col>
     <el-col :md="18">
       <Panel v-loading="!available" element-loading-text="Connecting">
-        <template #title>Terminal</template>
+        <template #title>
+          <div>Terminal</div>
+          <div>
+            <el-tooltip class="item" effect="dark" content="新开全屏" placement="top">
+              <span class="terminal-right-botton" @click="toFullTerminal(2)">
+                <i class="el-icon-monitor"></i>
+              </span>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="立刻全屏" placement="top">
+              <span class="terminal-right-botton" @click="toFullTerminal(1)">
+                <i class="el-icon-full-screen"></i>
+              </span>
+            </el-tooltip>
+          </div>
+        </template>
         <template #default>
-          <div class="terminal-wrapper">
+          <!-- 全屏模式下的 Logo 显示 -->
+          <div v-if="isFull" class="full-terminal-logo only-pc-display">
+            <Logo></Logo>
+          </div>
+          <!-- 全屏模式下的操作按钮 -->
+          <div v-show="isFull" class="full-terminal-button-wrapper">
+            <div class="full-terminal-button" @click="openInstance">开启</div>
+            <div class="full-terminal-button" @click="stopInstance">关闭</div>
+            <div class="full-terminal-button" @click="restartInstance">重启</div>
+            <div class="full-terminal-button" @click="killInstance">终止</div>
+            <div class="full-terminal-button" @click="backTerminal">退出</div>
+          </div>
+          <!-- 全屏与非全屏的终端窗口 -->
+          <div :class="{ 'terminal-wrapper': true, 'full-terminal-wrapper': isFull }">
             <div id="terminal-container" style="height: 560px; width: 100%"></div>
             <div id="terminal-input-wrapper">
               <el-input
@@ -472,6 +499,7 @@
 import * as echarts from "echarts";
 import Dialog from "../../components/Dialog";
 import Panel from "../../components/Panel";
+import Logo from "../../components/Logo.vue";
 import "../../assets/xterm/xterm.css";
 import LineInfo from "../../components/LineInfo";
 import LineButton from "../../components/LineButton";
@@ -501,6 +529,7 @@ export default {
     return {
       serviceUuid: this.$route.params.serviceUuid,
       instanceUuid: this.$route.params.instanceUuid,
+      isFull: this.$route.query.full,
       term: null,
       terminalWidth: 0,
       terminalHeight: 0,
@@ -550,7 +579,7 @@ export default {
     }
   },
   // eslint-disable-next-line vue/no-unused-components
-  components: { Panel, LineInfo, LineButton, Dialog },
+  components: { Panel, LineInfo, LineButton, Dialog, Logo },
   methods: {
     // 请求数据源(Ajax)
     async renderFromAjax() {
@@ -664,9 +693,12 @@ export default {
     // 初始化 Terminal 窗口
     initTerm() {
       // 创建窗口与输入事件传递
-      this.term = initTerminalWindow(document.getElementById("terminal-container"));
+      const terminalContainer = document.getElementById("terminal-container");
+      this.onChangeTerminalContainerHeight();
+      this.term = initTerminalWindow(terminalContainer);
       this.term.onData(this.sendInput);
     },
+
     // 开启实例（Ajax）
     async openInstance() {
       // this.busy = true;
@@ -927,6 +959,45 @@ export default {
     showTimeStr(time, now) {
       const date = new Date(now - time);
       return `${date.getHours()}:${(Array(2).join(0) + date.getMinutes()).slice(-2)}`;
+    },
+
+    toFullTerminal(type = 1) {
+      if (type === 1) {
+        this.isFull = true;
+        this.onChangeTerminalContainerHeight();
+        router.push({
+          path: `/terminal/${this.serviceUuid}/${this.instanceUuid}/`,
+          query: {
+            full: 1
+          }
+        });
+      }
+      if (type === 2) {
+        window.open(`#/terminal/${this.serviceUuid}/${this.instanceUuid}/?full=1`);
+      }
+    },
+
+    backTerminal() {
+      this.isFull = false;
+      this.onChangeTerminalContainerHeight();
+      router.push({
+        path: `/terminal/${this.serviceUuid}/${this.instanceUuid}/`,
+        query: {}
+      });
+    },
+
+    // 终端窗口大小自适应事件
+    onChangeTerminalContainerHeight() {
+      const terminalContainer = document.getElementById("terminal-container");
+      if (this.isFull) {
+        const height = document.body.clientHeight - 50;
+        terminalContainer.removeAttribute("style");
+        terminalContainer.setAttribute("style", `height: ${height}px; width:100%`);
+      } else {
+        terminalContainer.removeAttribute("style");
+        terminalContainer.setAttribute("style", `height: 550px; width:100%`);
+      }
+      if (this.term && this.term.fitAddon) this.$nextTick(() => this.term.fitAddon.fit());
     }
   },
   // 装载事件
@@ -943,9 +1014,10 @@ export default {
         this.sendResize(size.cols, size.rows);
       });
       this.term.fitAddon.fit();
-      window.onresize = () => {
-        this.term.fitAddon.fit();
-      };
+
+      // window.onresize = () => {
+      //   this.term.fitAddon.fit();
+      // };
 
       // 与守护进程建立 Websocket 连接
       await this.setUpWebsocket();
@@ -956,9 +1028,15 @@ export default {
       console.error(error);
       // 忽略
     }
+
+    // 监听窗口变化事件
+    window.addEventListener("resize", this.onChangeTerminalContainerHeight);
   },
   // 卸载事件
   beforeUnmount() {
+    // 卸载监听浏览器窗口改变时间
+    window.removeEventListener("resize", this.onChangeTerminalContainerHeight);
+
     try {
       // 停止定时器
       this.stopInterval();
@@ -984,11 +1062,67 @@ export default {
   /* background-color: rgb(30, 30, 30); */
   /* padding: 4px; */
   border-radius: 4px;
-  /* overflow: hidden; */
 }
 
 #terminal-input-wrapper input {
   width: 100%;
   font-size: 12px;
+}
+
+.full-terminal-wrapper {
+  background-color: rgb(30, 30, 30);
+  padding: 8px;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  z-index: 99;
+}
+
+.terminal-right-botton {
+  font-size: 14px;
+  padding: 0 6px;
+  margin: 0 2px;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+}
+
+.terminal-right-botton:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.full-terminal-button-wrapper {
+  position: fixed;
+  right: 30px;
+  top: 12px;
+  z-index: 100;
+}
+
+.full-terminal-button {
+  display: inline-block;
+  margin: 6px;
+  padding: 8px 14px;
+  color: white;
+  background-color: rgb(54, 54, 54);
+  border-radius: 4px;
+  box-shadow: 0px 0px 12px rgba(25, 25, 25, 0.626);
+  border: 1px solid rgb(73, 73, 73);
+  transition: all 0.6s;
+  cursor: pointer;
+}
+
+.full-terminal-button:hover {
+  background-color: rgb(101, 101, 101);
+}
+.full-terminal-logo {
+  z-index: 100;
+  text-align: center;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  line-height: 30px;
 }
 </style>

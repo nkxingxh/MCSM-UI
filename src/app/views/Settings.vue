@@ -49,7 +49,9 @@
             <div class="config-item">
               <div class="sub-title">
                 <p class="sub-title-title">Panel access port</p>
-                <p class="sub-title-info">The port for the browser to access the web panel, which must be released by the firewall.</p>
+                <p class="sub-title-info">
+                  The port for the browser to access the web panel, which must be released by the firewall.
+                </p>
               </div>
               <el-input placeholder="Please fill in the number" v-model="settings.httpPort"> </el-input>
             </div>
@@ -65,34 +67,23 @@
             <div class="config-item">
               <div class="sub-title">
                 <p class="sub-title-title">Panel listening IP</p>
-                <p class="sub-title-info">Generally, please keep the default value, which is generally applicable to multiple IP scenarios.</p>
-              </div>
-              <el-input placeholder="The default is  0.0.0.0 | Not required" v-model="settings.httpIp"> </el-input>
-            </div>
-
-            <div class="config-item">
-              <div class="sub-title">
-                <p class="sub-title-title">登录界面简单说明</p>
                 <p class="sub-title-info">
-                  用于显示在登录界面公开简要说明文字，可以用于管理员身份介绍，备案信息介绍
+                  In general, please keep the default value, which is generally applicable to the scenario of multiple IP, NIC binding.
                 </p>
               </div>
-              <el-input
-                placeholder="请输入文案，列如：京ICP备00000001号"
-                v-model="settings.loginInfo"
-              >
+              <el-input placeholder="The default is  0.0.0.0 | Not required" v-model="settings.httpIp">
               </el-input>
             </div>
 
             <div class="config-item">
               <div class="sub-title">
-                <p class="sub-title-title">登录界面简单说明</p>
+                <p class="sub-title-title">Brief description of the login screen</p>
                 <p class="sub-title-info">
-                  用于显示在登录界面公开简要说明文字，可以用于管理员身份介绍，备案信息介绍
+                  Used to display public brief description text in the login screen, can be used for administrator identity introduction, filing information introduction
                 </p>
               </div>
               <el-input
-                placeholder="请输入文案，列如：京ICP备00000001号"
+                placeholder="Please enter the text, listed as: 京ICP备00000001号"
                 v-model="settings.loginInfo"
               >
               </el-input>
@@ -324,7 +315,7 @@
             <a
               target="black"
               href="https://github.com/MCSManager/MCSManager-Daemon/blob/master/LICENSE"
-              >GPL-3.0</a
+              >AGPL-3.0</a
             >
             开源软件协议发行
           </p>
@@ -337,62 +328,61 @@
         <div class="sub-title">
           <p class="sub-title-title">闭源商业许可证</p>
           <p class="sub-title-info">
-            若您想二次开发并且闭源使用于任何活动（包括但不限于商业，个人）。<br />
-            请参考:
-            <a href="https://mcsmanager.com/" target="_blank" rel="noopener noreferrer">
-              相关许可证
-            </a>
+            若您想二次开发并且闭源使用于任何活动（包括但不限于商业，个人）。
           </p>
-          <p class="sub-title-info"></p>
+        </div>
+        <div>
+          <ItemGroup>
+            <a
+              href="https://mcsmanager.com/#app-download"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="display: inline-block"
+            >
+              <el-button type="" size="medium">了解更多</el-button>
+            </a>
+            <a
+              href="https://mcsmanager.com/agreement.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="display: inline-block"
+            >
+              <el-button type="" size="medium">用户协议</el-button>
+            </a>
+          </ItemGroup>
         </div>
 
-        <div class="sub-title">
-          <p class="sub-title-title">项目赞助者</p>
-          <p class="sub-title-info">没有以下名单的重点支持，就不会有 MCSManager 的长期维护。</p>
-          <p class="sub-title-info"></p>
-        </div>
-
-        <div class="contributors">
-          <el-row :gutter="10" v-if="sponsorList">
-            <el-col :md="4" v-for="(item, index) in sponsorList" :key="index">
-              <a
-                :href="item.link || 'https://mcsmanager.com'"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <el-card
-                  shadow="hover"
-                  :body-style="{ padding: '16px' }"
-                  style="height: 70px; margin-bottom: 10px"
-                >
-                  <p style="margin: 0px; font-size: 13px">
-                    <b>{{ item.name }}</b>
-                  </p>
-                  <p style="margin: 0px; font-size: 12px; color: gray">
-                    {{ item.message ? item.message : "--" }}
-                  </p>
-                </el-card>
-              </a>
-            </el-col>
+        <div class="contributors" v-if="sponsorList">
+          <div class="sub-title">
+            <p class="sub-title-title">开源项目赞助名单</p>
+            <p class="sub-title-info">
+              只含前 40 名赞助者，查看完整赞助名单或进行赞助支持请前往
+              <a href="https://mcsmanager.com/" target="_blank" rel="noopener noreferrer">
+                MCSManager 官方网站 </a
+              >。
+            </p>
+            <p class="sub-title-info"></p>
+          </div>
+          <el-row :gutter="10">
             <el-col :span="24">
-              <p class="color-gray text-center">
-                只含前 30 名赞助者，查看完整赞助名单或进行赞助支持请前往
-                <a href="https://mcsmanager.com/" target="_blank" rel="noopener noreferrer">
-                  MCSManager 官方网站
+              <div
+                v-for="(item, index) in sponsorList"
+                :key="index"
+                style="margin: 0px 8px 4px 0px; display: inline-block"
+              >
+                <a
+                  :href="item.link || 'https://mcsmanager.com'"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="text-decoration: underline"
+                >
+                  <span style="margin: 0px; font-size: 13px">
+                    {{ item.name }}
+                  </span>
                 </a>
-              </p>
+              </div>
             </el-col>
           </el-row>
-          <div v-else>
-            <p>暂无数据</p>
-          </div>
-        </div>
-
-        <div>
-          <p class="color-gray text-center">
-            版权所有
-            <a target="black" href="https://github.com/Suwings">Suwings</a>
-          </p>
         </div>
       </template>
     </Panel>
@@ -456,7 +446,7 @@ export default {
             }
           }
         }
-        this.sponsorList = arr.slice(0, 30);
+        this.sponsorList = arr.slice(0, 40);
       } else {
         this.sponsorList = null;
       }
@@ -488,5 +478,8 @@ export default {
 }
 .config-item {
   margin-top: 10px;
+}
+.contributors {
+  margin: 10px 0px;
 }
 </style>
