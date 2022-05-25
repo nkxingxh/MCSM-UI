@@ -81,10 +81,10 @@
         <el-col :md="12" :offset="0">
           <el-select size="small" v-model="newTask.action" placeholder="请选择" style="width: 100%">
             <el-option label="发送命令" value="command"></el-option>
-            <el-option label="开启实例" value="start"></el-option>
-            <el-option label="关闭实例" value="stop"></el-option>
-            <el-option label="重启实例" value="restart"></el-option>
-            <el-option label="终止实例" value="kill"></el-option>
+            <el-option label="Start" value="start"></el-option>
+            <el-option label="Stop" value="stop"></el-option>
+            <el-option label="Restart" value="restart"></el-option>
+            <el-option label="Terminate" value="kill"></el-option>
           </el-select>
         </el-col>
         <el-col :md="12" :offset="0">

@@ -88,22 +88,22 @@
       </div>
 
       <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-        <template #title>分布式服务总览</template>
+        <template #title>Distributed Services Overview</template>
         <template #default>
           <p>
-            确保所有守护进程均在线，离线状态将导致此守护进程以及相关功能不可用，可能会影响使用体验与数据。
+            Make sure all daemons are online, offline status will make this daemon and related functions unavailable, which may affect the usage experience and data.
             <br />
             面板端 {{ panelVersion }} 必须对应守护进程 {{ specifiedDaemonVersion }} 版本
           </p>
           <el-table :data="servicesStatus" style="width: 100%" size="small">
-            <el-table-column prop="ip" label="地址" width="180"> </el-table-column>
-            <el-table-column prop="remarks" label="备注" width="240"> </el-table-column>
-            <el-table-column prop="port" label="端口" width="180"> </el-table-column>
+            <el-table-column prop="ip" label="Address" width="180"> </el-table-column>
+            <el-table-column prop="remarks" label="Remarks" width="240"> </el-table-column>
+            <el-table-column prop="port" label="Port" width="180"> </el-table-column>
             <el-table-column prop="cpu" label="CPU"> </el-table-column>
-            <el-table-column prop="mem" label="内存"> </el-table-column>
-            <el-table-column prop="instance" label="已有实例"> </el-table-column>
-            <el-table-column prop="started" label="运行实例"> </el-table-column>
-            <el-table-column prop="version" label="守护进程版本">
+            <el-table-column prop="mem" label="Memory"> </el-table-column>
+            <el-table-column prop="instance" label="Total"> </el-table-column>
+            <el-table-column prop="started" label="Running"> </el-table-column>
+            <el-table-column prop="version" label="Version">
               <template #default="scope">
                 <span
                   class="color-green"
@@ -116,21 +116,21 @@
                     effect="dark"
                     v-if="scope.row.version !== specifiedDaemonVersion && scope.row.status"
                     placement="top"
-                    content="与面板端要求版本不一致"
+                    content="Inconsistency with expected version"
                   >
                     <span><i class="el-icon-warning-outline"></i> {{ scope.row.version }}</span>
                   </el-tooltip>
                 </span>
               </template>
             </el-table-column>
-            <el-table-column prop="status" label="连接状态">
+            <el-table-column prop="status" label="Status">
               <template #default="scope">
                 <span class="color-green" v-if="scope.row.status">
-                  <i class="el-icon-circle-check"></i> 在线
+                  <i class="el-icon-circle-check"></i> Online
                 </span>
                 <span class="color-red" v-if="!scope.row.status">
-                  <el-tooltip effect="dark" content="无法连接到指定ip或者密钥错误" placement="top">
-                    <span><i class="el-icon-warning-outline"></i> 离线</span>
+                  <el-tooltip effect="dark" content="Unable to connect to specified address or wrong key" placement="top">
+                    <span><i class="el-icon-warning-outline"></i> Offline</span>
                   </el-tooltip>
                 </span>
               </template>
@@ -141,7 +141,7 @@
       <el-row :gutter="20">
         <el-col :md="12" :offset="0">
           <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-            <template #title>面板端接口请求量</template>
+            <template #title>Panel-side interface request volume</template>
             <template #default>
               <p>每1分钟统计间隔，总计1小时的请求历史</p>
               <div class="echart-wrapper">
@@ -152,7 +152,7 @@
         </el-col>
         <el-col :md="12" :offset="0">
           <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-            <template #title>面板端 CPU 使用率</template>
+            <template #title>Panel-side CPU usage</template>
             <template #default>
               <p>每10秒统计间隔，总十分钟的 CPU 历史使用率</p>
               <div class="echart-wrapper">
@@ -165,7 +165,7 @@
       <el-row :gutter="20">
         <el-col :md="12" :offset="0">
           <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-            <template #title>分布式实例运行量</template>
+            <template #title>Distributed Instance Runs</template>
             <template #default>
               <p>每1分钟统计间隔，总计1小时的实例状态历史</p>
               <div class="echart-wrapper">
@@ -176,7 +176,7 @@
         </el-col>
         <el-col :md="12" :offset="0">
           <Panel v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.5)">
-            <template #title>面板端内存使用率</template>
+            <template #title>Panel-side memory usage</template>
             <template #default>
               <p>每10秒统计间隔，总十分钟的内存历史使用率</p>
               <div class="echart-wrapper">
@@ -190,7 +190,7 @@
   </el-row>
 
   <Panel v-if="manualLink">
-    <template #title>帮助文档</template>
+    <template #title>Help Documentation</template>
     <template #default>
       <el-row :gutter="20">
         <el-col :md="6" :offset="0" v-for="(item, index) in manualLink['helpLink']" :key="index">
@@ -198,7 +198,7 @@
         </el-col>
 
         <el-col :span="24">
-          <div class="box-card-title-more">常见问题</div>
+          <div class="box-card-title-more">FAQ</div>
         </el-col>
         <el-col :md="6" :offset="0" v-for="(item, index) in manualLink['faq']" :key="index">
           <a class="manualLink" :href="item.link" v-text="item.title" target="_black"></a>
@@ -325,72 +325,72 @@ export default {
       // const uptime = Number(system.uptime / 60 / 60).toFixed(0);
       this.computerInfoA = [
         {
-          name: "系统类型",
+          name: "System Type",
           value: `${system.type} ${system.platform}`
         },
         {
-          name: "系统版本",
+          name: "System Version",
           value: `${system.version} ${system.release}`
         },
         {
-          name: "面板端时间",
+          name: "System time",
           value: system.time
         },
         {
-          name: "本地时间",
+          name: "Local time",
           value: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()
         },
         {
-          name: "计算机名称",
+          name: "System Hostname",
           value: system.hostname
         },
         {
-          name: "进程权限用户",
+          name: "System User",
           value: system.user.username
         },
         {
-          name: "内存使用数值",
+          name: "Memory",
           value: `${used}GB/${total}GB`,
           warn: used / total > 0.9
         },
         // {
-        //   name: "系统 CPU 使用率",
+        //   name: "CPU",
         //   value: `${Number(system.cpu * 100).toFixed(1)}%`,
         //   warn: system.cpu * 100 > 90
         // }
 
         {
-          name: "Node 版本",
+          name: "Node Version",
           value: system.node
         },
         {
-          name: "面板版本",
+          name: "Panel Version",
           value: data.version
         },
         // {
-        //   name: "分布式在线",
+        //   name: "Distributed Online",
         //   value: `${remoteCount.available}/${remoteCount.total}`,
         //   warn: remoteCount.available !== remoteCount.total
         // },
         // {
-        //   name: "实例运行数",
+        //   name: "Running Instance",
         //   value: `${runningInstance}/${totalInstance}`
         // },
 
         {
-          name: "对应守护进程版本",
+          name: "Expected Daemon Version",
           value: this.specifiedDaemonVersion
         },
         {
-          name: "阻挡请求次数",
+          name: "Blocked Requests",
           value: data.record.illegalAccess
         },
         // {
-        //   name: "登录失败与总次数",
+        //   name: "Login failures / Total",
         //   value: `${data.record.loginFailed}/${data.record.logined}`
         // },
         {
-          name: "封禁 IP 数",
+          name: "Blocked IPs",
           value: data.record.banips,
           warn: data.record.banips > 0
         }

@@ -37,7 +37,7 @@
         <template #title>Basic</template>
         <el-menu-item key="/overview" index="/overview">
           <i class="el-icon-pie-chart"></i>
-          <template #title>Home</template>
+          <template #title>Dashboard</template>
         </el-menu-item>
         <el-menu-item key="/instances" index="/instances">
           <i class="el-icon-coin"></i>
@@ -45,7 +45,7 @@
         </el-menu-item>
         <el-menu-item key="/users" index="/users">
           <i class="el-icon-user"></i>
-          <template #title>用户中心</template>
+          <template #title>Users</template>
         </el-menu-item>
         <!-- <el-menu-item key="/home" index="/home">
           <i class="el-icon-pie-chart"></i>
@@ -56,11 +56,11 @@
         <template #title>Advanced</template>
         <el-menu-item key="/services" index="/services">
           <i class="el-icon-connection"></i>
-          <template #title>守护进程</template>
+          <template #title>Daemons</template>
         </el-menu-item>
         <el-menu-item key="/container" index="/container">
           <i class="el-icon-copy-document"></i>
-          <template #title>环境镜像</template>
+          <template #title>Containers</template>
         </el-menu-item>
         <!-- <el-menu-item key="/update" index="/update">
           <i class="el-icon-guide"></i>

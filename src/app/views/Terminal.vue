@@ -23,7 +23,7 @@
   <el-row :gutter="20">
     <el-col :md="6">
       <Panel>
-        <template #title>基本信息</template>
+        <template #title>Info</template>
         <template #default>
           <div v-if="!available">
             <el-skeleton :rows="3" animated />
@@ -82,7 +82,7 @@
                       style="width: 100%"
                       size="small"
                       class="row-mt"
-                      >关闭实例
+                      >Stop
                     </el-button>
                   </template>
                 </el-popconfirm>
@@ -96,7 +96,7 @@
                       size="small"
                       class="row-mt"
                     >
-                      重启实例
+                      Restart
                     </el-button>
                   </template>
                 </el-popconfirm>
@@ -111,7 +111,7 @@
                       style="width: 100%"
                       size="small"
                       class="row-mt"
-                      >强制终止实例
+                      >Terminate
                     </el-button>
                   </template>
                 </el-popconfirm>

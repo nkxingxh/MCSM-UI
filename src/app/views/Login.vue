@@ -79,7 +79,7 @@
                 <transition name="fade">
                   <div v-if="cause" id="login-cause">{{ cause }}</div>
                   <div v-else class="login-info-wrapper fgp" @click="forgotPassword">
-                    <a href="javascript:void(0)" rel="noopener noreferrer"> 忘记密码 </a>
+                    <a href="javascript:void(0)" rel="noopener noreferrer"> Forgot Password? </a>
                   </div>
                 </transition>
                 <el-button

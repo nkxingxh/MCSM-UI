@@ -61,7 +61,7 @@
               plain
               @click="changeView(1)"
               v-show="showTableList"
-              >简单视图</el-button
+              >Card view</el-button
             >
             <el-button
               type="primary"
@@ -69,7 +69,7 @@
               plain
               @click="changeView(2)"
               v-show="!showTableList"
-              >批量操作视图</el-button
+              >List view</el-button
             >
             <el-button size="small" type="success" @click="toNewInstance">
               <i class="el-icon-plus"></i> New instance
@@ -168,10 +168,10 @@
               </span>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <!-- <el-dropdown-item>开启实例</el-dropdown-item>
-                  <el-dropdown-item>关闭实例</el-dropdown-item>
-                  <el-dropdown-item>重启实例</el-dropdown-item>
-                  <el-dropdown-item>终止实例</el-dropdown-item> -->
+                  <!-- <el-dropdown-item>Start</el-dropdown-item>
+                  <el-dropdown-item>Stop</el-dropdown-item>
+                  <el-dropdown-item>Restart</el-dropdown-item>
+                  <el-dropdown-item>Terminate</el-dropdown-item> -->
                   <el-dropdown-item @click="editInstance(item.serviceUuid, item.instanceUuid)"
                     >编辑配置</el-dropdown-item
                   >
@@ -179,10 +179,10 @@
                     >控制面板</el-dropdown-item
                   >
                   <el-dropdown-item @click="unlinkInstance(item.instanceUuid)"
-                    >移除实例</el-dropdown-item
+                    >Remove</el-dropdown-item
                   >
                   <el-dropdown-item @click="unlinkInstance(item.instanceUuid, true)"
-                    >删除实例</el-dropdown-item
+                    >Delete</el-dropdown-item
                   >
                 </el-dropdown-menu>
               </template>
@@ -195,29 +195,29 @@
             @click="toInstance(item.serviceUuid, item.instanceUuid)"
           >
             <div>
-              状态：
-              <span class="color-gray" v-if="item.status == 0">未运行</span>
-              <span class="color-green" v-else-if="item.status == 3">运行中</span>
-              <span class="color-yellow" v-else-if="item.status == 1">停止中</span>
-              <span class="color-yellow" v-else-if="item.status == 2">启动中</span>
-              <span class="color-red" v-else-if="item.status == -1">忙碌</span>
-              <span class="color-red" v-else>忙碌</span>
+              Status: 
+              <span class="color-gray" v-if="item.status == 0">Not running</span>
+              <span class="color-green" v-else-if="item.status == 3">Running</span>
+              <span class="color-yellow" v-else-if="item.status == 1">Stopping</span>
+              <span class="color-yellow" v-else-if="item.status == 2">Starting</span>
+              <span class="color-red" v-else-if="item.status == -1">Busy</span>
+              <span class="color-red" v-else>Busy</span>
             </div>
             <div>
-              <span>启动时间：</span>
+              <span>Start Time: </span>
               <span>{{ item.config.lastDatetime }}</span>
             </div>
             <div>
-              <span>到期时间：</span>
+              <span>Expiration date: </span>
               <span>{{ item.config.endTime }}</span>
             </div>
             <div>
-              <span>其他信息：</span>
+              <span>Info: </span>
               <span>
                 <span v-if="item.info && item.info.currentPlayers >= 0">
-                  人数 {{ item.info.currentPlayers }}/{{ item.info.maxPlayers }}
+                  Players {{ item.info.currentPlayers }}/{{ item.info.maxPlayers }}
                 </span>
-                <span v-else-if="item.info && item.version"> &nbsp;版本 {{ item.version }} </span>
+                <span v-else-if="item.info && item.version"> &nbsp;Version {{ item.version }} </span>
                 <span v-else></span>
               </span>
             </div>

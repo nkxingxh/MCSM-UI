@@ -21,14 +21,14 @@
 
 <template>
   <Panel>
-    <template #title>远程守护进程列表</template>
+    <template #title>Daemon list</template>
     <template #default>
       <el-table :data="services" stripe style="width: 100%" size="small">
         <el-table-column prop="ip" label="地址"></el-table-column>
         <el-table-column prop="port" label="端口"></el-table-column>
         <el-table-column label="状态">
           <template #default="scope">
-            <span>{{ scope.row.available ? "在线" : "离线" }}</span>
+            <span>{{ scope.row.available ? "Online" : "Offline" }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="remarks" label="备注"></el-table-column>
