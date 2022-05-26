@@ -10,7 +10,7 @@ export async function onRequest(context) {
     } = context;
 
     let url = new URL(request.url);
-    url.hostname = API_HOST;
+    url.hostname = env.API_HOST;
     let newRequest = new Request(url, request);
     return fetch(newRequest);
 }
