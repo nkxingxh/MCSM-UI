@@ -212,7 +212,7 @@ ENV LC_ALL=zh_CN.UTF-8
 ENV TZ=Asia/Shanghai
 WORKDIR /workspace
 `;
-        this.name = "mopenjdk";
+        this.name = "mcsm-openjdk";
         this.version = "8";
       }
       if (type === 2) {
@@ -221,7 +221,7 @@ RUN mkdir -p /workspace
 ENV TZ=Asia/Shanghai
 WORKDIR /workspace
 `;
-        this.name = "mopenjdk";
+        this.name = "mcsm-openjdk";
         this.version = "16";
       }
       if (type === 3) {
@@ -230,7 +230,7 @@ RUN mkdir -p /workspace
 RUN apt update
 WORKDIR /workspace
 `;
-        this.name = "mubuntu";
+        this.name = "mcsm-ubuntu";
         this.version = "latest";
       }
       if (type === 5) {
@@ -242,7 +242,7 @@ ENV LC_ALL=zh_CN.UTF-8
 ENV TZ=Asia/Shanghai
 WORKDIR /workspace
 `;
-        this.name = "mopenjdk";
+        this.name = "mcsm-openjdk";
         this.version = "17";
       }
       this.step = 2;
