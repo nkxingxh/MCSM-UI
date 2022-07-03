@@ -63,6 +63,11 @@ a {
   margin: 4px 0px;
 }
 
+.el-menu-item [class^=el-icon-] {
+  vertical-align: text-top;
+  line-height: 16px;
+}
+
 .el-menu-item:hover {
   background-color: rgb(66, 66, 66);
 }
@@ -112,4 +117,8 @@ $item-group-margin: 5px;
 .el-menu-item.is-active{
   color: var(--el-menu-active-color);
   background-color: #ffffff1c;
+}
+
+.el-menu-item [class^=el-icon-]{
+  vertical-align: text-top;
 }

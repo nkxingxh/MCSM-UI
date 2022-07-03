@@ -35,6 +35,7 @@
       <Logo></Logo>
       <el-menu-item-group>
         <template #title>基础功能</template>
+
         <el-menu-item key="/overview" index="/overview">
           <i class="el-icon-pie-chart"></i>
           <template #title>数据监控</template>
@@ -47,19 +48,19 @@
           <i class="el-icon-user"></i>
           <template #title>用户中心</template>
         </el-menu-item>
-        <!-- <el-menu-item key="/home" index="/home">
-          <i class="el-icon-pie-chart"></i>
-          <template #title>个人简报</template>
-        </el-menu-item> -->
+        <el-menu-item key="/quickstart" index="/quickstart">
+          <i class="el-icon-circle-plus-outline"></i>
+          <template #title>快速开始</template>
+        </el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group>
         <template #title>高级功能</template>
         <el-menu-item key="/services" index="/services">
           <i class="el-icon-connection"></i>
-          <template #title>守护进程</template>
+          <template #title>节点管理</template>
         </el-menu-item>
         <el-menu-item key="/container" index="/container">
-          <i class="el-icon-copy-document"></i>
+          <i class="el-icon-cpu"></i>
           <template #title>环境镜像</template>
         </el-menu-item>
         <!-- <el-menu-item key="/update" index="/update">

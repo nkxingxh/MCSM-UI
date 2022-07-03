@@ -153,11 +153,14 @@
           instanceStatusGray: item.status !== 3,
           CradInstance: true
         }"
+        :tipType="0"
       >
         <template #title>
-          <div style="font-size: 13px" class="only-line-text">
+          <span style="font-size: 13px" class="only-line-text">
             {{ item.nickname }}
-          </div>
+          </span>
+        </template>
+        <template #rtitle>
           <div>
             <el-dropdown trigger="click">
               <span class="el-dropdown-link">

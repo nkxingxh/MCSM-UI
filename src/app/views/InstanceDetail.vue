@@ -93,7 +93,7 @@
                     <div class="sub-title-title require-field">启动命令</div>
                     <div class="sub-title-info">
                       <span>
-                        适用于任何程序命令，若程序路径或附加参数中含有空格可使用引号作为边界，包含的文本将视作一段整体
+                        适用于任何程序命令，若程序路径或附加参数中含有空格可使用引号作为边界，包含的文本将视作一段整体。整条命令不可有换行。
                       </span>
                       <br />
                       <span>
@@ -107,7 +107,13 @@
                     </div>
                   </div>
                   <div class="flex">
-                    <el-input v-model="instanceInfo.config.startCommand" type="text"></el-input>
+                    <el-input
+                      v-model="instanceInfo.config.startCommand"
+                      :rows="3"
+                      type="textarea"
+                      resize="none"
+                      placeholder='列如 "C:\Program Files\Java\bin\java.exe" -Dfile.encoding=utf-8 -jar "myserver.jar" -nogui'
+                    ></el-input>
                     <el-button type="primary" plain @click="openCommandAssistCall(1)">
                       命令生成
                     </el-button>
@@ -501,8 +507,8 @@ export default {
       tableDict1: [
         {
           prop: "protocol",
-          label: "通信协议",
-          width: "120px"
+          label: "通信协议(tcp/udp)",
+          width: "140px"
         },
         {
           prop: "port1",
@@ -559,6 +565,13 @@ export default {
       router.push({ path: `/terminal/${this.serviceUuid}/${this.instanceUuid}/` });
     },
     async saveConfig() {
+      if (this.instanceInfo?.config?.startCommand.includes("\n")) {
+        return this.$message({
+          message: "启动命令中不可包含换行，这并非脚本文件，不可执行多条命令，请检查",
+          type: "error"
+        });
+      }
+
       // 保存实例配置文件
       try {
         const postData = JSON.parse(JSON.stringify(this.instanceInfo.config));
@@ -742,7 +755,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 .bt {

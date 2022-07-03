@@ -47,6 +47,8 @@ import ProcessConfig from "./views/ProcessConfig";
 import ProcessConfigFile from "./views/ProcessConfigFile";
 import Schedule from "./views/Schedule";
 import Update from "./views/Update";
+import Quickstart from "./views/quickstart";
+import Install from "./views/Install";
 
 const routes = [
   {
@@ -186,10 +188,20 @@ const routes = [
     component: Login
   },
   {
+    path: "/quickstart",
+    name: "快速开始",
+    component: Quickstart
+  },
+  {
     path: "/update",
     name: "版本控制",
     component: Update
-  }
+  },
+  {
+    path: "/install",
+    name: "安装",
+    component: Install
+  },
 ];
 
 const router = createRouter({
