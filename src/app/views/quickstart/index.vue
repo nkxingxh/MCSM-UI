@@ -35,7 +35,7 @@
               @click="selectQuickStartType(item.value)"
             >
               <ItemGroup>
-                <SelectBlock style="height: 120px; background-color: white">
+                <SelectBlock style="height: 120px;"> <!-- background-color: white -->
                   <template #title>{{ item.title }}</template>
                   <template #info>{{ item.subTitle }}</template>
                 </SelectBlock>
@@ -54,7 +54,7 @@
               @click="selectHost(item.uuid)"
             >
               <ItemGroup v-if="item.available">
-                <SelectBlock style="height: 120px; background-color: white">
+                <SelectBlock style="height: 120px;"> <!-- background-color: white -->
                   <template #title>{{ item.ip }}:{{ item.port }}</template>
                 </SelectBlock>
               </ItemGroup>
