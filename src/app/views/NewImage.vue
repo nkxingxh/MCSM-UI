@@ -36,7 +36,7 @@
         <template #default>
           <div class="sub-title">什么是环境镜像？</div>
           <div class="sub-title-info">
-            由于 Minecraft 或其他程序需要特定的运行环境，比如 Java/Python/.Net 等等，
+            由于 Minecraft 或其他程序需要特定的运行环境，比如 Java/Python/.NET 等等，
             不同版本在同一台机器上安装管理十分复杂，使用不同的环境镜像可以很方便的管理不同版本不同类型的服务环境。
           </div>
           <div class="sub-title row-mt">什么是 Docker？为什么需要它？</div>
@@ -202,7 +202,7 @@ export default {
     },
     selectType(type) {
       if (type === 1) {
-        this.dockerFile = `FROM openjdk:8
+        this.dockerFile = `FROM openjdk:8-jre
 RUN mkdir -p /workspace
 RUN apt update && apt install -y locales
 RUN echo "zh_CN.UTF-8 UTF-8">/etc/locale.gen && locale-gen

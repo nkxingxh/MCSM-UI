@@ -26,5 +26,6 @@ module.exports = {
         target: "http://192.168.6.3:23333/"
       }
     }
-  }
+  },
+  productionSourceMap: false
 };
