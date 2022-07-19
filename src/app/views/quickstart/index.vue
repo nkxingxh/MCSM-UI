@@ -25,7 +25,7 @@
       <template #title>{{ title }}</template>
       <template #default>
         <div v-show="step == 0">
-          <span>欢迎您访问“快速开始”，我们将尽可能的降低使用门槛并帮助您使用面板！</span>
+          <!-- <span>欢迎您访问“快速开始”，我们将尽可能的降低使用门槛并帮助您使用面板！</span> -->
           <el-row :gutter="10" justify="left" class="">
             <el-col
               :md="6"
@@ -46,19 +46,16 @@
 
         <div v-if="step == 1">
           <el-row :gutter="10" justify="left">
-            <el-col
-              :md="6"
-              :offset="0"
-              v-for="(item, index) in remoteObjects"
-              :key="index"
-              @click="selectHost(item.uuid)"
-            >
-              <ItemGroup v-if="item.available">
-                <SelectBlock style="height: 120px;"> <!-- background-color: white -->
-                  <template #title>{{ item.ip }}:{{ item.port }}</template>
-                </SelectBlock>
-              </ItemGroup>
-            </el-col>
+            <template v-for="(item, index) in remoteObjects" :key="index">
+              <el-col :md="6" :offset="0" @click="selectHost(item.uuid)" v-if="item.available">
+                <ItemGroup>
+                  <SelectBlock style="height: 120px; background-color: white">
+                    <template #title>{{ item.ip }}:{{ item.port }}</template>
+                    <template #info>{{ item.remarks }}</template>
+                  </SelectBlock>
+                </ItemGroup>
+              </el-col>
+            </template>
           </el-row>
         </div>
       </template>
@@ -96,8 +93,8 @@ export default {
           value: 3
         },
         {
-          title: "我需要出租一个 Minecraft 服务器给客户",
-          subTitle: "帮助您快速出租一个服务器给您的客户实现盈利",
+          title: "获得更多信息",
+          subTitle: "我们将打开官方文档以帮助您获取更多有用信息",
           value: 4
         }
       ]
@@ -114,6 +111,9 @@ export default {
       });
     },
     selectQuickStartType(v) {
+      if (v === 4) {
+        return window.open("https://docs.mcsmanager.com/");
+      }
       this.quickStartType = v;
       this.title = "请选择您期望部署到哪台主机？";
       this.step = 1;

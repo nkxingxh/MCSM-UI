@@ -97,13 +97,19 @@
                       </span>
                       <br />
                       <span>
-                        通常情况下，建议使用命令助手生成启动命令，如果有额外需求可以自定义启动命令
+                        如果您输入命令无反应，或者终端排版错乱，可以开启 控制台-终端设置-伪终端
+                        进行尝试。
                       </span>
                       <br />
                       <span>
-                        例如 "C:\Program Files\Java\bin\java.exe" -Dfile.encoding=utf-8 -jar "my
-                        server.jar" -nogui
+                        通常情况下，建议使用命令助手生成启动命令，如果有额外需求可以自定义启动命令。
                       </span>
+                      <br />
+                      <span>
+                        列如 "C:\Program Files\Java\bin\java.exe" -Dfile.encoding=utf-8
+                        -Djline.terminal=jline.UnsupportedTerminal -jar "my server.jar" -nogui
+                      </span>
+                      <br />
                     </div>
                   </div>
                   <div class="flex">
@@ -473,7 +479,7 @@
 </template>
 
 <script>
-import { API_IMAGES, API_INSTANCE, API_NETWORK_MODES } from "../service/common";
+import { API_IMAGES, API_INSTANCE, API_NETWORK_MODES, TERMINAL_CODE } from "../service/common";
 import { processTypeList, statusCodeToText } from "../service/instance_tools";
 import Panel from "../../components/Panel";
 import router from "../router";
@@ -535,17 +541,7 @@ export default {
       ],
 
       // 可选的字符编码
-      characters: [
-        { label: "UTF-8（通用）", value: "UTF-8" },
-        { label: "GBK（中文）", value: "GBK" },
-        { label: "BIG5（繁中）", value: "BIG5" },
-        { label: "Shift_JIS（日文）", value: "Shift_JIS" },
-        { label: "KS_C_5601（韩文）", value: "KS_C_5601" },
-        { label: "GB2312（中文）", value: "GB2312" },
-        { label: "GB18030（中文）", value: "GB18030" },
-        { label: "Big5-HKSCS（繁中）", value: "Big5-HKSCS" },
-        { label: "UTF-16", value: "UTF-16" }
-      ]
+      characters: TERMINAL_CODE
     };
   },
   methods: {

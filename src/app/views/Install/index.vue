@@ -24,15 +24,17 @@
     <div class="bg"></div>
     <div class="panel-wrapper" v-if="step == 0">
       <Panel class="panel tc" body-style="padding:40px;">
-        <h1 class="title">欢迎使用，MCSManager 管理面板</h1>
-        <p>我们支持 Minecraft，其他部分游戏服务端以及通用控制台程序的交互和管理。</p>
+        <h1 class="title">欢迎使用 MCSManager 管理面板</h1>
+        <p>开源，分布式，开箱即用，支持 Minecraft 游戏服务端和所有控制台程序的管理面板</p>
         <div style="margin-top: 48px">
-          <el-button type="primary" @click="next">现在安装</el-button>
+          <el-button type="primary" @click="next" v-loading="isLoading">开始使用</el-button>
         </div>
         <div class="panel-bottom">
-          <a href="https://mcsmanager.com/" target="_blank" rel="noopener noreferrer"
-            >官方网站: https://mcsmanager.com/</a
-          >
+          <a href="https://mcsmanager.com/" target="_blank" rel="noopener noreferrer">
+            Reference: https://mcsmanager.com/
+          </a>
+          <br />
+          <span>Released under the AGPL-3.0 License.</span>
         </div>
       </Panel>
     </div>
@@ -50,12 +52,33 @@
               <el-input v-model="initUser.passWord" />
             </el-form-item>
             <el-form-item label="">
-              <el-button type="primary" @click="createUser">创建账号</el-button>
+              <el-button type="primary" @click="createUser" v-loading="isLoading">
+                创建账号
+              </el-button>
             </el-form-item>
           </el-form>
         </div>
       </Panel>
     </div>
+
+    <!-- <div class="panel-wrapper" v-if="step == 2">
+      <Panel class="panel" body-style="padding:40px;" v-loading="isLoading">
+        <h1 class="title">我们需要一些时间安装依赖程序</h1>
+        <p>
+          我们将下载约5MB左右的二进制程序辅助 MCSManager
+          的运行，为您提供最真实的终端交互功能，这是一个可选功能。
+        </p>
+        <div style="margin-top: 48px">
+          <ItemGroup>
+            <el-button type="primary" @click="installLib">安装依赖库</el-button>
+            <el-button @click="next">跳过</el-button>
+          </ItemGroup>
+          <p class="color-gray" style="font-size: 12px">
+            <small>如果此安装失败或者跳过，面板依然可以正常使用，只是缺少仿真控制台能力。 </small>
+          </p>
+        </div>
+      </Panel>
+    </div> -->
 
     <div class="panel-wrapper" v-if="step == 2">
       <Panel class="panel" body-style="padding:40px;" v-loading="isLoading">
@@ -99,7 +122,11 @@ export default {
   },
   methods: {
     next() {
-      this.step++;
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.step++;
+      }, 2000);
     },
     async createUser() {
       this.$refs["form"].validate(async (valid) => {
@@ -125,11 +152,14 @@ export default {
     },
     toOverview() {
       window.location.href = "/#/overview?from_install=1";
+    },
+    installLib() {
+      console.log("install....");
+      this.next();
     }
   }
 };
 </script>
-
 
 <style scoped>
 .bg {
