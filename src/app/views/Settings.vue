@@ -343,6 +343,14 @@
             若您想二次开发并且闭源使用于任何活动（包括但不限于商业，个人）。
           </p>
         </div>
+
+        <div class="sub-title">
+          <p class="sub-title-title">当前使用的 UI 界面由 NKXingXh 修改</p>
+          <p class="sub-title-info">
+            https://github.com/nkxingxh/MCSM-UI
+          </p>
+        </div>
+
         <div>
           <ItemGroup>
             <a
