@@ -27,7 +27,7 @@
     :uniqueOpened="false"
     background-color="#30313300"
     text-color="#fff"
-    active-text-color="#ffd04b"
+    active-text-color="#61ed1c"
     style="height: 100%; padding: 0px 8px"
     :default-active="$route.meta.activeMenu || $route.path"
   >
@@ -134,11 +134,20 @@ export default {
   text-align: center;
 }
 .page-el-menu {
-  background: url("../assets/side.png");
+  /*background: url("../assets/side.png");*/
+  background: rgb(44 52 68 / 60%);  /**这里设置背景会覆盖掉上面的 background-color*/
   transition: all 1s;
 }
 
 .page-el-menu:hover {
   background-position-x: 50px;
+}
+
+.el-menu-item {
+  font-size: 15px;
+}
+
+.el-menu-item-group__title {
+    color: #a7c4ff important; /**草 这颜色改了死活不生效 屮 */
 }
 </style>

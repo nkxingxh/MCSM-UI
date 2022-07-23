@@ -39,10 +39,7 @@
         <Aside />
       </el-aside>
     </div>
-    <el-container style="background-position: top !important;
-                          background-repeat: no-repeat !important;
-                          background-size: cover !important;
-                          background-image: url(https://www.nkxingxh.top/backgrounds/rand.php) !important;">
+    <el-container>
       <el-main>
         <el-row>
           <el-col>
