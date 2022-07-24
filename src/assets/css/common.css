@@ -206,10 +206,28 @@
   align-items: center;
 }
 
-/* 表格背景 */
+/* 表格 */
 .el-table {
+  color: var(--table-color) !important;
   --el-color-white: #ffffff4f;
   border-radius: 5px;
+}
+
+.el-table th {
+  background-color: var(--table-th-background-color) !important;
+	color: var(--table-th-color) !important;
+}
+
+.el-table tr {
+  background-color: var(--table-tr-background-color) !important;
+}
+
+tr.el-table__row--striped td {
+  background: var(--table-tr-striped-background-color) !important;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+	background-color: var(--table-tr-hover-background-color)!important
 }
 
 .title-tip:before {

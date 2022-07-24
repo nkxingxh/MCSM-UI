@@ -9,7 +9,7 @@
     --input-color: rgb(0 150 136);
     --input-focus-border-color: rgb(76, 206, 193);
 
-    --menu-background-color: rgba(44, 52, 68, 60%);
+    --menu-background-color: rgba(44, 52, 68, 0.6);
     --drawer-background-color: rgba(127, 131, 125, 0.5);
 
     --menu-active-color: #61ed1c;
@@ -21,4 +21,14 @@
 
     --selection-background-color: rgb(0, 140, 255);
     --selection-color: white;
+
+    /*--table-tr-background-color: rgba(255, 255, 255, 0.30);
+    --table-tr-striped-background-color: rgba(255, 255, 255, 0.30);*/
+
+    --table-color: black;   /*表格内容文字颜色*/
+    --table-tr-background-color: rgba(51, 142, 209, 0.10);  /*表格内容背景颜色*/
+    --table-tr-striped-background-color: rgba(255, 255, 255, 0.50); /*表格条纹行背景颜色*/
+    --table-tr-hover-background-color: rgba(7, 255, 131, 0.15); /*鼠标悬浮行背景颜色*/
+    --table-th-background-color: rgba(51, 142, 209, 0.10);  /*表头背景颜色*/
+    --table-th-color: rgba(96, 98, 102);    /*表头文本颜色*/
 }
