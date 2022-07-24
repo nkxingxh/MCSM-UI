@@ -349,12 +349,6 @@
 }
 </style>
 
-<style>
-input.el-input__inner {
-  background: rgb(255 255 255 / 75%);
-}
-</style>
-
 <script>
 import { CircleCheckFilled, CircleCloseFilled } from "@element-plus/icons";
 import Panel from "../../components/Panel";

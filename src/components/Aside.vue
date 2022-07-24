@@ -133,9 +133,11 @@ export default {
   margin: 22px 0px;
   text-align: center;
 }
+
 .page-el-menu {
   /*background: url("../assets/side.png");*/
-  background: rgb(44 52 68 / 60%);  /**这里设置背景会覆盖掉上面的 background-color*/
+  backdrop-filter: var(--menu-blur);
+  /*background: rgb(44 52 68 / 60%);*/  /**这里设置背景会覆盖掉上面的 background-color ### 该项移动到 common.css*/
   transition: all 1s;
 }
 
@@ -145,9 +147,5 @@ export default {
 
 .el-menu-item {
   font-size: 15px;
-}
-
-.el-menu-item-group__title {
-    color: #a7c4ff important; /**草 这颜色改了死活不生效 屮 */
 }
 </style>

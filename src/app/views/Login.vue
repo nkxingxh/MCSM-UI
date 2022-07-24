@@ -114,14 +114,6 @@
                   >
                 </div>
               </div>
-
-              <div class="login-info-wrapper row-mt">
-                <div>
-                  <span class="color-gray">
-                    © 2022 <a target="black" href="https://github.com/Suwings">Suwings</a>
-                  </span>
-                </div>
-              </div>
               
             </div>
           </form>
@@ -382,7 +374,7 @@ export default {
   background-position: top !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
-  background-image: url(https://www.nkxingxh.top/backgrounds/rand.php) !important;
+  background-image: var(--background-image-login) !important;
 
   position: fixed;
   z-index: 999;
@@ -441,6 +433,13 @@ export default {
 
 /* 针对手机的登录界面 */
 @media (max-width: 900px) {
+  #login-panel-wrapper {
+    background-position: top !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-image: var(--background-image-login-phone) !important;
+  }
+
   #login-panel {
     text-align: center;
     margin: 0;

@@ -20,6 +20,13 @@
 */
 
 @media (max-width: 900px) {
+  .app {
+    background-position: top !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-image: var(--background-image-panel-phone) !important;
+  }
+
   .only-pc-display {
     display: none;
   }
