@@ -74,13 +74,13 @@
             <el-button size="small" type="success" @click="toNewInstance">
               <i class="el-icon-plus"></i> 新建实例
             </el-button>
-            <el-button size="small" @click="batOpen" v-if="showTableList">
+            <el-button size="small" type="success" plain @click="batOpen" v-if="showTableList">
               <i class="el-icon-video-play"></i> 开启
             </el-button>
-            <el-button size="small" @click="batStop" v-if="showTableList">
+            <el-button size="small" type="warning" plain @click="batStop" v-if="showTableList">
               <i class="el-icon-video-pause"></i> 关闭
             </el-button>
-            <el-button size="small" @click="batKill" v-if="showTableList">
+            <el-button size="small" type="warning" @click="batKill" v-if="showTableList">
               <i class="el-icon-video-pause"></i> 终止
             </el-button>
             <el-button size="small" type="danger" plain @click="batDelete(1)" v-if="showTableList">
