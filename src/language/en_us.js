@@ -6,7 +6,7 @@ export default {
         setting: "Setting",
         manage: "Manage",
         edit: "Edit",
-        allocation: "Allocation of resources",
+        allocation: "Resources",
         add: "Add",
         confirm: "Confirm",
         cancel: "Cancel",
@@ -25,6 +25,8 @@ export default {
         yes: "Yes",
         no: "No",
         save: "Save",
+        config: "config",
+        operation: "operation"
     },
     root: {
         title: "Processing...",
@@ -45,7 +47,7 @@ export default {
         login: "Login",
         logging: "logging...",
         isNull: "Username or password cannot be empty",
-        errorUOrP: "The username or password is incorrect, please check and try again",
+        errorCause: "The username or password is incorrect, please check and try again",
         logBackIn: "Login again",
         loginSuccess: "Login successful",
 
@@ -217,7 +219,7 @@ export default {
         instanceNameInfo: "Support Chinese and ensure uniqueness as much as possible",
         instanceNameInfo2: "Instance name, as unique as possible",
         commandTemplate: "Startup Command Template",
-        commandTemplateText: "Where {{ProgramName}} represents the name of the file you upload next, normally no modification is required",
+        commandTemplateText: "Where &#36;&#123;&#80;&#114;&#111;&#103;&#114;&#97;&#109;&#78;&#97;&#109;&#101;&#125; represents the name of the file you upload next, normally no modification is required",
         cmdInfo: "eg java -jar server.jar",
         cmdAssist: "Command Assistant",
         fileDir: "Server file directory",
@@ -867,7 +869,7 @@ export default {
         loginPageInfo: "Used to display a brief description text on the login interface. It can be used for administrator identity introduction and filing information introduction.",
         inputCopy: "Please enter the copy, for example: Beijing ICP No. 00000001",
 
-        referenceLink: "Related Reference Link",
+        referenceLink: "Tips:",
         referenceLinksInfo:
             "Most settings of the panel are very important. Under normal circumstances, most parameters do not need to be changed. If you do not know what a parameter represents, it is recommended that you do not modify it.",
 

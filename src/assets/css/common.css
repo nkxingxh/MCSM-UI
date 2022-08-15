@@ -64,7 +64,7 @@
   opacity: 0;
 }
 
-/* 标题和子标题组件 */
+/* Title and subtitle components */
 .sub-title {
   margin-bottom: 10px;
   font-size: 14px;
@@ -106,7 +106,7 @@
   display: inline-block;
 }
 
-/* 列表项目栏 */
+/* list item column */
 .list-item {
   margin: 2px 0px;
   padding: 8px;
@@ -124,7 +124,7 @@
   overflow-y: auto;
 }
 
-/* 首页的项目数值表格 */
+/* Item value table on the home page */
 .overview-info-title {
   /* text-align: center; */
   color: rgb(66, 66, 66);
@@ -143,7 +143,7 @@
   color: rgb(122, 122, 122);
 }
 
-/* 常见问题栏目连接属性集合 */
+/* FAQ column connection attribute collection */
 .manualLink {
   display: block;
   color: black;
@@ -177,7 +177,7 @@
   height: 100%;
 }
 
-/* 卡片 CSS 标题元素 */
+/* Card CSS title element */
 .box-card-title-more {
   font-weight: 800;
   margin-bottom: 12px;

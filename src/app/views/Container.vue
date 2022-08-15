@@ -11,11 +11,13 @@
         <el-table-column prop="port" :label="$t('overview.port')"></el-table-column>
         <el-table-column :label="$t('container.status')">
           <template #default="scope">
-            <span>{{ scope.row.available ? this.$t("overview.online") : this.$t("overview.offline") }}</span>
+            <span>{{
+              scope.row.available ? this.$t("overview.online") : this.$t("overview.offline")
+            }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="remarks" :label="$t('overview.remarks')"></el-table-column>
-        <el-table-column :label="$t('general.operate')" style="text-align: center" width="140px">
+        <el-table-column :label="$t('general.operate')" style="text-align: center" width="260px">
           <template #default="scope">
             <el-button
               size="mini"
@@ -23,14 +25,13 @@
               :disabled="!scope.row.available"
               >{{ $t("container.imagesManage") }}</el-button
             >
-            <!-- <el-button size="mini" @click="deleteImage(scope.row)" :disabled="!scope.row.available">主机本地环境</el-button> -->
           </template>
         </el-table-column>
       </el-table>
     </template>
   </Panel>
 
-  <Panel>
+  <Panel v-iszh>
     <template #title>{{ $t("container.relevantInfo") }}</template>
     <template #default>
       <el-row :gutter="10">

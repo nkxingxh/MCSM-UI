@@ -154,11 +154,10 @@ export default {
     };
   },
   methods: {
-    // 回车登录
     submit() {
       this.login();
     },
-    // 登录过程入口
+
     async login() {
       try {
         if (!this.form.username || !this.form.username) {
@@ -185,18 +184,18 @@ export default {
         this.loading = false;
       }
     },
-    // 登录失败
+
     async failed(error) {
       this.cause = error.message;
       if (this.cause == "null") {
-        this.cause = this.$t("login.errorUOrP");
+        this.cause = this.$t("login.errorCause");
       }
       this.loginText = this.$t("login.logBackIn");
       this.close = true;
       await sleep(400);
       this.close = false;
     },
-    // 登录成功
+
     async success() {
       this.close = true;
       this.closeWindow = true;
@@ -211,9 +210,9 @@ export default {
           duration: 0
         });
       }
-      // 等待动画效果完毕
+      // wait for the animation to finish
       await sleep(1500);
-      // 无缝切换，不采用刷新方法登录系统
+      // Seamless switch, do not use the refresh method to log in to the system
       this.$router.push({ path: `/` });
     },
     async requestLoginInfo() {
@@ -232,26 +231,14 @@ export default {
   },
   async mounted() {
     console.log("Welcome use MCSManager.");
-    console.log("Copyright 2022 Suwings All rights reserved.");
-    // 请求登录界面文案
+    console.log("Copyright 2022 MCSManager All rights reserved.");
+    // Request login copyleft text
     this.requestLoginInfo();
-
-    // try {
-    //   await setupUserInfo();
-    //   if (this.$store.state?.userInfo?.uuid) {
-    //     console.log("用户已登录，正在跳转");
-    //     window.location.href = "/";
-    //   }
-    // } catch (err) {
-    //   // 忽略
-    // }
   }
 };
 </script>
 
 <style scoped>
-/* 动画与基本元素CSS */
-
 .login-panel-wrapper-out {
   opacity: 0;
   z-index: 1;
@@ -412,7 +399,6 @@ export default {
   margin-right: 18px;
 }
 
-/* 针对手机的登录界面 */
 @media (max-width: 900px) {
   #login-panel-wrapper {
     background-position: top !important;

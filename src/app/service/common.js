@@ -33,6 +33,7 @@ export const API_USER_UPDATE = `${API_URL}/api/auth/update`;
 export const API_USER_API = `${API_URL}/api/auth/api`;
 
 export const API_OVERVIEW = `${API_URL}/api/overview`;
+export const API_UPDATE_SETTING_WHEN_INSTALL = `${API_URL}/api/overview/install`;
 
 export const API_INSTANCE = `${API_URL}/api/instance`;
 export const API_INSTANCE_UPLOAD = `${API_URL}/api/instance/upload`;
@@ -62,18 +63,17 @@ export const API_PROGRESS = `${API_URL}/api/environment/progress`;
 export const API_PANEL_STATUS = `${API_URL}/api/auth/status`;
 export const API_PANEL_INSTALL = `${API_URL}/api/auth/install`;
 
-
 export const TERMINAL_CODE = [
-  { label: "UTF-8（通用）", value: "UTF-8" },
-  { label: "GBK（中文）", value: "GBK" },
-  { label: "BIG5（繁中）", value: "BIG5" },
-  { label: "Shift_JIS（日文）", value: "Shift_JIS" },
-  { label: "KS_C_5601（韩文）", value: "KS_C_5601" },
-  { label: "GB2312（中文）", value: "GB2312" },
-  { label: "GB18030（中文）", value: "GB18030" },
-  { label: "Big5-HKSCS（繁中）", value: "Big5-HKSCS" },
+  { label: "UTF-8", value: "UTF-8" },
+  { label: "GBK", value: "GBK" },
+  { label: "GB2312", value: "GB2312" },
+  { label: "GB18030", value: "GB18030" },
+  { label: "BIG5", value: "BIG5" },
+  { label: "Big5-HKSCS", value: "Big5-HKSCS" },
+  { label: "Shift_JIS", value: "Shift_JIS" },
+  { label: "KS_C_5601", value: "KS_C_5601" },
   { label: "UTF-16", value: "UTF-16" }
-]
+];
 
 export function sleep(t) {
   return new Promise((s) => {
@@ -126,8 +126,8 @@ export function getDescriptionByTitle(description, title = "") {
   return _exec(arr, description);
 }
 
-// 适用于配置文件解析成 JSON 格式后再解析成网页可循环的二维表格式
-// 其具体原理是实现一个简单双向绑定，来对应每一个具体的配置项目
+// It is suitable for parsing the configuration file into JSON format and then parsing it into a two-dimensional table format that can be cycled by web pages
+// The specific principle is to implement a simple two-way binding to correspond to each specific configuration item
 export function jsonToMap(json, topTitle = "", map = {}) {
   for (const key in json) {
     let title = null;

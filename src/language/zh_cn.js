@@ -25,7 +25,12 @@ export default {
         yes: "是",
         no: "否",
         save: "保存",
+        error: "操作错误",
+        success: "操作成功",
+        config: "配置",
+        operation: "操作"
     },
+
     root: {
         title: "处理中...",
         private: "个人资料",
@@ -45,7 +50,7 @@ export default {
         login: "登录",
         logging: "登录中",
         isNull: "账号或密码不能为空值",
-        errorUOrP: "账号或密码错误，请检查后重试",
+        errorCause: "账号或密码错误，请检查后重试",
         logBackIn: "重新登录",
         loginSuccess: "登录成功",
 
@@ -219,7 +224,7 @@ export default {
         instanceNameInfo: "支持中文，尽可能保证唯一性",
         instanceNameInfo2: "实例名，尽可能确保唯一性",
         commandTemplate: "启动命令模板",
-        commandTemplateText: "其中 {{ProgramName}} 代表您接下来上传的文件名，一般情况下无需进行修改",
+        commandTemplateText: "其中 &#36;&#123;&#80;&#114;&#111;&#103;&#114;&#97;&#109;&#78;&#97;&#109;&#101;&#125; 代表您接下来上传的文件名，一般情况下无需进行修改",
         cmdInfo: "如 java -jar server.jar",
         cmdAssist: "命令助手",
         fileDir: "服务端文件目录",
@@ -378,10 +383,10 @@ export default {
 
     },
     instanceTypeList: {
-        "控制台通用程序": "控制台通用程序",
-        "Steam 服务端通用": "Steam 服务端通用",
-        "MC Java 版通用": "MC Java 版通用",
-        "MC 基岩版通用": "MC 基岩版通用",
+        "universal": "控制台通用程序",
+        "Steam": "Steam 服务端通用",
+        "MC Java": "MC Java 版通用",
+        "MC BDS": "MC 基岩版通用",
         "MC Spigot": "MC Spigot",
         "MC Paper": "MC Paper",
         "MC BungeeCord": "MC BungeeCord",
@@ -872,7 +877,7 @@ export default {
         loginPageInfo: "用于显示在登录界面公开简要说明文字，可以用于管理员身份介绍，备案信息介绍。",
         inputCopy: "请输入文案，例如：京ICP备00000001号",
 
-        referenceLink: "相关参考链接",
+        referenceLink: "注意事项",
         referenceLinksInfo:
             "面板的大部分设置十分重要，在一般情况下，绝大部分参数都无需更改，如果某个参数您并不知晓代表什么，那么建议您不要对其进行修改。",
 
