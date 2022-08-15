@@ -1,57 +1,41 @@
 <!--
-  Copyright (C) 2022 Suwings <Suwings@outlook.com>
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-  
-  According to the AGPL, it is forbidden to delete all copyright notices, 
-  and if you modify the source code, you must open source the
-  modified source code.
-
-  版权所有 (C) 2022 Suwings <Suwings@outlook.com>
-
-  该程序是免费软件，您可以重新分发和/或修改据 GNU Affero 通用公共许可证的条款，
-  由自由软件基金会，许可证的第 3 版，或（由您选择）任何更高版本。
-
-  根据 AGPL 与用户协议，您必须保留所有版权声明，如果修改源代码则必须开源修改后的源代码。
-  可以前往 https://mcsmanager.com/ 阅读用户协议，申请闭源开发授权等。
+  Copyright (C) 2022 MCSManager <mcsmanager-dev@outlook.com>
 -->
 
 <template>
   <Panel>
-    <template #title>编辑文件 {{ target }}</template>
+    <template #title>{{ $t("fileManagerEditor.title") }} {{ target }}</template>
     <template #default>
       <div class="instance-table-warpper">
         <div>
           <ItemGroup>
             <el-button size="small" type="success" @click="saveFile">
-              <i class="el-icon-refresh"></i> 更新文件
+              <i class="el-icon-refresh"></i> {{ $t("fileManagerEditor.updateFile") }}
             </el-button>
             <el-button size="small" @click="refresh">
-              <i class="el-icon-refresh"></i> 刷新
+              <i class="el-icon-refresh"></i> {{ $t("general.refresh") }}
             </el-button>
             <el-button size="small" @click="back" v-if="!backType">
-              <i class="el-icon-pie-chart"></i> 回到文件列表
+              <i class="el-icon-pie-chart"></i> {{ $t("fileManagerEditor.backToFileManager") }}
             </el-button>
-            <!-- <el-button size="small" @click="backTerminal" plain v-if="backType == 1">
-              回到控制台
-            </el-button> -->
           </ItemGroup>
         </div>
         <div>
           <el-button size="small" @click="backViaHistory" type="primary" plain v-if="backType == 1">
-            回到简单编辑视图
+            {{ $t("fileManagerEditor.backViaHistory") }}
           </el-button>
         </div>
       </div>
       <div v-show="!error" style="overflow: auto">
-        <!-- <textarea :value="value" id="mcode-editor" style="display:none"></textarea> -->
         <div id="editor" style="height: 70vh" class="editor-code-font"></div>
       </div>
       <div v-show="error" style="padding: 16px 0px">
-        <el-alert title="编辑文件错误" type="error" :description="error" show-icon></el-alert>
+        <el-alert
+          :title="$t('fileManagerEditor.editError')"
+          type="error"
+          :description="error"
+          show-icon
+        ></el-alert>
       </div>
     </template>
   </Panel>
@@ -71,7 +55,6 @@ export default {
       target: this.$route.query.target,
       backType: this.$route.query.backType,
       error: null,
-      // 文件编辑功能
       edit: {
         text: "",
         fileName: this.$route.query.target
@@ -105,7 +88,7 @@ export default {
   methods: {
     async refresh() {
       await this.render();
-      this.$message({ message: "已刷新", type: "success" });
+      this.$message({ message: this.$t("general.refreshFinish"), type: "success" });
     },
     async backTerminal() {
       this.$router.push({
@@ -123,7 +106,7 @@ export default {
     backViaHistory() {
       this.$router.go(-1);
     },
-    // 编辑文件
+
     async render() {
       try {
         const text = await request({
@@ -146,7 +129,6 @@ export default {
       }
     },
 
-    // 保存文件
     async saveFile() {
       this.edit.text = this.editor.getValue();
       await request({
@@ -161,7 +143,7 @@ export default {
           target: this.target
         }
       });
-      this.$message({ message: "更新文本成功", type: "success" });
+      this.$message({ message: this.$t("fileManagerEditor.updateTextSuccess"), type: "success" });
     }
   }
 };
