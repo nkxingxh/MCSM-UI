@@ -254,11 +254,7 @@
               </LineInfo>
               <LineInfo>
                 <i class="el-icon-date"></i> {{ $t("instances.endTime") }}:
-                {{
-                  instanceInfo.config.endTime
-                    ? new Date(instanceInfo.config.endTime).toLocaleDateString()
-                    : $t("instancesDetail.unlimited")
-                }}
+                {{ instanceInfo.config.endTime || $t("instancesDetail.unlimited") }}
               </LineInfo>
               <LineInfo>
                 <i class="el-icon-date"></i> {{ $t("instancesDetail.createDateTime") }}:
@@ -268,7 +264,6 @@
                 <i class="el-icon-date"></i> {{ $t("terminal.lastDatetime") }}:
                 {{ instanceInfo.config.lastDatetime }}
               </LineInfo>
-              <!-- <LineInfo><i class="el-icon-document"></i> 标签: {{ instanceInfo.tag }}</LineInfo> -->
               <LineInfo
                 ><i class="el-icon-document"></i> {{ $t("terminal.ie") }}:
                 {{ instanceInfo.config.ie }} {{ $t("terminal.oe") }}:
@@ -349,6 +344,11 @@
         </Panel>
         <Panel>
           <template #title>{{ $t("terminal.cmdHistory") }}</template>
+          <template #rtitle>
+            <span class="terminal-right-botton" @click="deleteCommandHistory">
+              <i class="el-icon-delete"></i>
+            </span>
+          </template>
           <template #default>
             <div v-if="commandhistory.length > 0">
               <ItemGroup>
@@ -711,6 +711,10 @@ export default {
         this.commandhistory.pop();
       }
       localStorage.setItem("CommandHistory", JSON.stringify(this.commandhistory));
+    },
+    deleteCommandHistory() {
+      localStorage.setItem("CommandHistory", JSON.stringify([]));
+      this.commandhistory = [];
     },
     startInterval() {
       if (!this.renderTask) this.renderTask = setInterval(this.renderFromSocket, 1000);
@@ -1148,7 +1152,7 @@ export default {
 
 .terminal-right-botton {
   font-size: 14px;
-  padding: 0 6px;
+  padding: 2px 6px;
   margin: 0 2px;
   cursor: pointer;
   transition: all 0.5s;

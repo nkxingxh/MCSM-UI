@@ -183,12 +183,21 @@ export default {
         programName: "",
         maxMemory: "",
         minMemory: "",
-        additional: "-Dfile.encoding=UTF-8 -Duser.language=cn -Duser.country=ZH",
+        additional: "-Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN",
         suffix: "nogui"
       }
     };
   },
   watch: {
+    activeName() {
+      if (this.activeName === "program" || this.activeName === "bds") {
+        this.command.additional = "";
+        this.command.suffix = "";
+      } else {
+        this.command.additional = "-Dfile.encoding=UTF-8 -Duser.language=zh -Duser.country=CN";
+        this.command.suffix = "nogui";
+      }
+    },
     defaultProgramName() {
       this.command.programName = this.defaultProgramName;
     },
