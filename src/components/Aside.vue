@@ -93,8 +93,7 @@ export default {
 .page-el-menu {
   /*background: url("../assets/side.png");*/
   backdrop-filter: var(--menu-blur);
-  /*background: rgb(44 52 68 / 60%);*/  /**这里设置背景会覆盖掉上面的 background-color ### 该项移动到 common.css*/
-  transition: all 1s;
+  transition: all 0.4s;
 }
 
 .page-el-menu:hover {

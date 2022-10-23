@@ -205,7 +205,19 @@
                   style="width: 100%"
                   size="small"
                   @click="toFileManager"
-                  >{{ $t("instancesDetail.fileManager") }}
+                >
+                  {{ $t("instancesDetail.fileManager") }}
+                </el-button>
+              </el-col>
+              <el-col :lg="24" :offset="0" class="row-mb">
+                <el-button
+                  :disabled="!available"
+                  icon="el-icon-folder-opened"
+                  style="width: 100%"
+                  size="small"
+                  @click="networkTip = true"
+                >
+                  {{ $t("instancesDetail.networkTip") }}
                 </el-button>
               </el-col>
               <el-col :lg="24" :offset="0" class="row-mb" v-iszh>
@@ -401,7 +413,7 @@
         <div class="sub-title">
           <p class="sub-title-title">{{ $t("terminal.pingConfig.addr") }}</p>
           <p class="sub-title-info">
-            {{ $t("terminal.pingConfig.") }}
+            {{ $t("terminal.pingConfig.inputAddr") }}
           </p>
         </div>
         <el-input
@@ -483,7 +495,7 @@
           <p class="sub-title-info">
             {{ $t("terminal.unavailableTerminal.maybe") }}
           </p>
-          <div>
+          <div style="text-align: center; margin: 20px">
             <img
               :src="require('@/assets/daemon_connection_error.png')"
               alt=""
@@ -507,6 +519,8 @@
       :instanceUuid="instanceUuid"
     >
     </TermSetting>
+
+    <NetworkTip v-model:visible="networkTip"></NetworkTip>
   </div>
 </template>
 
@@ -539,10 +553,11 @@ import { statusCodeToText, typeTextToReadableText } from "../../service/instance
 import { initTerminalWindow, textToTermText } from "../../service/term";
 import { getPlayersOption } from "../../service/chart_option";
 import TermSetting from "./TermSetting";
+import NetworkTip from "./NetworkTip";
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { Panel, LineInfo, LineButton, Dialog, Logo, TermSetting },
+  components: { Panel, LineInfo, LineButton, Dialog, Logo, TermSetting, NetworkTip },
   data: function () {
     return {
       input1: "",
@@ -555,6 +570,7 @@ export default {
       command: "",
       available: false,
       socket: null,
+      networkTip: false,
       instanceInfo: {
         config: {}
       },
