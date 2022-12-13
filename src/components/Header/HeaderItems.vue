@@ -4,7 +4,7 @@
 
 <template>
   <ItemGroup :lr="true">
-    <div class="el-dropdown-link">
+    <!--div class="el-dropdown-link">
       <el-tooltip
         class="item"
         effect="dark"
@@ -30,7 +30,7 @@
           </template>
         </el-dropdown>
       </el-tooltip>
-    </div>
+    </div-->
     <div class="el-dropdown-link" @click="toPrivate">
       <el-tooltip class="item" effect="dark" :content="$t('root.private')" placement="bottom">
         <el-link :underline="false">
