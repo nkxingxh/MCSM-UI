@@ -13,6 +13,7 @@ export const API_FILE_URL = `${API_URL}/api/files`;
 export const API_FILE_LIST = `${API_URL}/api/files/list`;
 export const API_FILE_DOWNLOAD = `${API_URL}/api/files/download/`;
 export const API_FILE_UPLOAD = `${API_URL}/api/files/upload/`;
+export const API_FILE_TOUCH = `${API_URL}/api/files/touch`;
 export const API_FILE_MKDIR = `${API_URL}/api/files/mkdir`;
 export const API_FILE_COPY = `${API_URL}/api/files/copy`;
 export const API_FILE_MOVE = `${API_URL}/api/files/move`;
@@ -65,6 +66,10 @@ export const API_PANEL_STATUS = `${API_URL}/api/auth/status`;
 export const API_PANEL_INSTALL = `${API_URL}/api/auth/install`;
 
 export const API_GET_QUICK_INSTALL_LIST_ADDR = `${API_URL}/api/instance/quick_install_list`;
+
+export const API_FORWARD_REQUEST = `${API_URL}/api/instance/forward`;
+
+export const QUERY_PUBLIC_IP = "http://statistics.mcsmanager.com/ip"
 
 export const TERMINAL_CODE = [
   { label: "UTF-8", value: "UTF-8" },

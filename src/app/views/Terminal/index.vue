@@ -21,24 +21,60 @@
                 <i class="el-icon-tickets"></i> {{ $t("terminal.type") }}:
                 {{ typeToText(instanceInfo.config.type) }}
               </LineInfo>
+              <LineInfo v-if="instanceInfo.info?.openFrpStatus">
+                <i class="el-icon-share"></i> {{ $t("terminal.openfrp") }}:
+                <span class="color-green">
+                  {{ $t("instances.status.running") }}
+                </span>
+              </LineInfo>
+
+              <LineInfo v-if="hasDocker">
+                <i class="el-icon-tickets"></i> {{ $t("terminal.limit") }}:
+                <span class="color-blue" style="cursor: pointer" @click="openDockerInfoDialog">
+                  {{ $t("general.read") }}
+                </span>
+              </LineInfo>
+
+              <LineInfo v-if="hasDocker && instanceInfo.config.docker.ports">
+                <i class="el-icon-money"></i> {{ $t("terminal.dockerPort") }}:
+
+                <div style="padding: 10px 0px 0px 16px">
+                  <div
+                    style="margin-bottom: 2px"
+                    v-for="(item, index) in dockerPortsParse(instanceInfo.config.docker.ports)"
+                    :key="index"
+                  >
+                    <template v-if="!item.more">
+                      <span>{{ $t("CommonText.029") }}: {{ item.p1 }} </span>
+                      <span style="margin-left: 6px"
+                        >{{ $t("CommonText.030") }}: {{ item.p2 }}
+                      </span>
+                      <span style="margin-left: 8px">
+                        <el-tag type="success" size="mini">{{ item.protocol }}</el-tag>
+                      </span>
+                    </template>
+                    <template v-else>...</template>
+                  </div>
+                </div>
+              </LineInfo>
               <LineInfo
                 ><i class="el-icon-finished"></i> {{ $t("imageManager.status") }}:
-                <span v-if="instanceInfo.status === -1" class="color-red">{{
-                  $t("home.maintaining")
-                }}</span>
-                <span v-else-if="instanceInfo.status === 0" class="color-gray">{{
-                  $t("home.outOfRunning")
-                }}</span>
-                <span v-else-if="instanceInfo.status === 1" class="color-yellow">{{
-                  $t("home.stopping")
-                }}</span>
-                <span v-else-if="instanceInfo.status === 2" class="color-yellow">{{
-                  $t("home.starting")
-                }}</span>
-                <span v-else-if="instanceInfo.status === 3" class="color-green">{{
-                  $t("home.running")
-                }}</span>
-                <span v-else class="color-red">{{ $t("terminal.unknown") }}</span>
+                <span v-if="instanceInfo.status === -1" class="color-red">
+                  {{ $t("home.maintaining") }}
+                </span>
+                <span v-else-if="instanceInfo.status === 0" class="color-gray">
+                  {{ $t("home.outOfRunning") }}
+                </span>
+                <span v-else-if="instanceInfo.status === 1" class="color-yellow">
+                  {{ $t("home.stopping") }}
+                </span>
+                <span v-else-if="instanceInfo.status === 2" class="color-yellow">
+                  {{ $t("home.starting") }}
+                </span>
+                <span v-else-if="instanceInfo.status === 3" class="color-green">
+                  {{ $t("instances.status.running") }}
+                </span>
+                <span v-else class="color-red"> {{ $t("terminal.unknown") }} </span>
               </LineInfo>
               <LineInfo v-if="instanceInfo.info && instanceInfo.info.currentPlayers != -1">
                 <i class="el-icon-user"></i> {{ $t("terminal.currentPlayers") }}:
@@ -46,7 +82,7 @@
                 {{ instanceInfo.info.maxPlayers }}
               </LineInfo>
               <LineInfo v-if="instanceInfo.info && instanceInfo.info.version">
-                <i class="el-icon-user"></i> {{ $t("services.version") }}:
+                <i class="el-icon-collection"></i> {{ $t("services.version") }}:
                 {{ instanceInfo.info.version }}
               </LineInfo>
             </div>
@@ -207,17 +243,6 @@
                   @click="toFileManager"
                 >
                   {{ $t("instancesDetail.fileManager") }}
-                </el-button>
-              </el-col>
-              <el-col :lg="24" :offset="0" class="row-mb">
-                <el-button
-                  :disabled="!available"
-                  icon="el-icon-folder-opened"
-                  style="width: 100%"
-                  size="small"
-                  @click="networkTip = true"
-                >
-                  {{ $t("instancesDetail.networkTip") }}
                 </el-button>
               </el-col>
               <el-col :lg="24" :offset="0" class="row-mb" v-iszh>
@@ -479,48 +504,32 @@
       </template>
     </Dialog>
 
-    <Dialog v-model="unavailableTerminal" style="z-index: 9999">
-      <template #title>
-        {{ $t("terminal.unavailableTerminal.title") }}
-      </template>
-      <template #default>
-        <div class="sub-title">
-          <p class="sub-title-title">
-            {{
-              unavailableIp
-                ? $t("terminal.unavailableTerminal.browserCannotConnect")` ${unavailableIp}`
-                : $t("terminal.unavailableTerminal.browserCannotConnect2")
-            }}
-          </p>
-          <p class="sub-title-info">
-            {{ $t("terminal.unavailableTerminal.maybe") }}
-          </p>
-          <div style="text-align: center; margin: 20px">
-            <img
-              :src="require('@/assets/daemon_connection_error.png')"
-              alt=""
-              srcset=""
-              style="width: 460px"
-            />
-          </div>
-          <div class="sub-title">{{ $t("terminal.unavailableTerminal.solution") }}</div>
-          <ol style="padding-left: 20px">
-            <span v-html="$t('terminal.unavailableTerminal.solutions')"></span>
-          </ol>
-        </div>
-      </template>
-    </Dialog>
+    <UnavailableTerminalDialog ref="UnavailableTerminalDialog" :unavailableIp="unavailableIp">
+    </UnavailableTerminalDialog>
 
     <!-- Terminal Settings Dialog -->
     <TermSetting
       v-model:visible="terminalSettingPanel.visible"
       v-model:config="terminalSettingPanel"
       :serviceUuid="serviceUuid"
+      :isDisable="instanceInfo.status != 0"
       :instanceUuid="instanceUuid"
     >
     </TermSetting>
 
-    <NetworkTip v-model:visible="networkTip"></NetworkTip>
+    <NetworkTip
+      ref="networkTip"
+      :extraServiceConfig="instanceInfo.config.extraServiceConfig"
+      :instanceUuid="instanceUuid"
+      :serviceUuid="serviceUuid"
+    >
+    </NetworkTip>
+
+    <DockerInfo
+      v-if="instanceInfo.config.docker"
+      ref="dockerInfoDialog"
+      :dockerInfo="instanceInfo.config.docker"
+    ></DockerInfo>
   </div>
 </template>
 
@@ -528,10 +537,8 @@
 import * as echarts from "echarts";
 import Dialog from "@/components/Dialog";
 import Panel from "@/components/Panel";
-import Logo from "@/components/Logo.vue";
 import "@/assets/xterm/xterm.css";
 import LineInfo from "@/components/LineInfo";
-import LineButton from "@/components/LineButton";
 import { connectRemoteService } from "@/app/service/socket";
 import {
   API_INSTANCE,
@@ -553,11 +560,20 @@ import { statusCodeToText, typeTextToReadableText } from "../../service/instance
 import { initTerminalWindow, textToTermText } from "../../service/term";
 import { getPlayersOption } from "../../service/chart_option";
 import TermSetting from "./TermSetting";
-import NetworkTip from "./NetworkTip";
+import DockerInfo from "./DockerInfo";
+import NetworkTip from "@/components/NetworkTip";
+import UnavailableTerminalDialog from "./UnavailableTerminal.vue";
 
 export default {
-  // eslint-disable-next-line vue/no-unused-components
-  components: { Panel, LineInfo, LineButton, Dialog, Logo, TermSetting, NetworkTip },
+  components: {
+    UnavailableTerminalDialog,
+    Panel,
+    LineInfo,
+    Dialog,
+    TermSetting,
+    NetworkTip,
+    DockerInfo
+  },
   data: function () {
     return {
       input1: "",
@@ -567,10 +583,10 @@ export default {
       term: null,
       terminalWidth: 0,
       terminalHeight: 0,
+      visibleNetworkTip: false,
       command: "",
       available: false,
       socket: null,
-      networkTip: false,
       instanceInfo: {
         config: {}
       },
@@ -597,7 +613,6 @@ export default {
         visible: false
       },
 
-      unavailableTerminal: false,
       unavailableIp: null,
 
       playersChart: null,
@@ -622,6 +637,9 @@ export default {
     },
     ptyRow() {
       return this.instanceInfo.config.terminalOption.ptyWindowRow ?? 40;
+    },
+    hasDocker() {
+      return this.instanceInfo.config?.docker?.image ? true : false;
     }
   },
   methods: {
@@ -641,9 +659,11 @@ export default {
     // Request data source (Websocket)
     async renderFromSocket() {
       this.sendResize(this.terminalWidth, this.terminalHeight);
-      this.socket.emit("stream/detail", {});
+      if (this.socket) {
+        this.socket.emit("stream/detail", {});
+      }
     },
-    // establish a connection with the daemon
+    // Create a connection with the daemon
     async setUpWebsocket() {
       // Request a task passport from the panel to get permission to connect directly to the daemon
       let res = null;
@@ -654,6 +674,7 @@ export default {
           params: { remote_uuid: this.serviceUuid, uuid: this.instanceUuid }
         });
       } catch (error) {
+        this.$refs.UnavailableTerminalDialog.open();
         ElNotification({
           title: this.$t("terminal.cantConnectTerm"),
           message: error,
@@ -661,7 +682,6 @@ export default {
           type: "error",
           duration: 0
         });
-        this.unavailableTerminal = true;
         return;
       }
 
@@ -673,13 +693,13 @@ export default {
         password,
         () => {
           this.unavailableIp = null;
-          this.unavailableTerminal = false;
+          this.$refs.UnavailableTerminalDialog.close();
           // Get a system log
           this.syncLog();
         },
         () => {
           this.unavailableIp = addr;
-          this.unavailableTerminal = true;
+          this.$refs.UnavailableTerminalDialog.open();
         }
       );
 
@@ -742,10 +762,17 @@ export default {
     initTerm() {
       // Create window and pass input event
       const terminalContainer = document.getElementById("terminal-container");
+      const ft = localStorage.getItem("terminalFontSize");
+      if (!ft) {
+        this.term = initTerminalWindow(terminalContainer, {
+          fontSize: 12
+        });
+      } else {
+        this.term = initTerminalWindow(terminalContainer, {
+          fontSize: localStorage.getItem("terminalFontSize")
+        });
+      }
 
-      this.term = initTerminalWindow(terminalContainer, {
-        fontSize: 12
-      });
       this.term.onData(this.sendInput);
       this.onChangeTerminalContainerHeight();
     },
@@ -953,9 +980,8 @@ export default {
           url: API_INSTANCE_UPDATE,
           params: { remote_uuid: this.serviceUuid, uuid: this.instanceUuid },
           data: {
-            pingConfig: this.pingConfigForm.is ? this.pingConfigForm : {},
-            eventTask: this.eventConfigPanel.visible ? this.eventConfigPanel : {},
-            terminalOption: {}
+            pingConfig: this.pingConfigForm.is ? this.pingConfigForm : null,
+            eventTask: this.eventConfigPanel.visible ? this.eventConfigPanel : null
           }
         });
         this.$message({
@@ -1032,7 +1058,6 @@ export default {
       const date = new Date(now - time);
       return `${date.getHours()}:${(Array(2).join(0) + date.getMinutes()).slice(-2)}`;
     },
-
     toFullTerminal(type = 1) {
       if (type === 1) {
         this.isFull = true;
@@ -1076,10 +1101,44 @@ export default {
           this.$nextTick(() => this.term.fitAddon.fit());
         }
       }
+    },
+
+    openDockerInfoDialog() {
+      this.$refs.dockerInfoDialog.open();
+    },
+
+    // [ "25565:25565/tcp", "27766:27766/tcp" ]
+    dockerPortsParse(list = []) {
+      let line = [];
+      list.forEach((v, index) => {
+        if (index >= 2) return;
+        const tmp = v.split("/");
+        if (tmp.length != 2) return;
+        const protocol = tmp[1];
+        const p = tmp[0].split(":");
+        if (p.length >= 2) {
+          line.push({
+            p1: p[0],
+            p2: p[1],
+            protocol: String(protocol).toUpperCase()
+          });
+        }
+      });
+      if (list.length >= 2) {
+        line.push({
+          p1: null,
+          p2: null,
+          protocol: null,
+          more: true
+        });
+      }
+      return line;
     }
   },
   async mounted() {
     try {
+      this.visibleNetworkTip = this.$route.query.network_tip ? true : false;
+
       // Initialize web local storage
       this.initStorage();
 
@@ -1099,6 +1158,10 @@ export default {
     } catch (error) {
       console.error(error);
       // neglect
+    } finally {
+      if (this.visibleNetworkTip) {
+        this.$refs.networkTip.open();
+      }
     }
 
     // Listen for window change events

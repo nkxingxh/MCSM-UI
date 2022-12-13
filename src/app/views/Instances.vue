@@ -114,6 +114,7 @@
               <FunctionComponent
                 component="button"
                 size="small"
+                type="danger"
                 :plain="true"
                 v-if="showTableList"
                 @click="batDelete(2)"
@@ -605,11 +606,27 @@ export default {
       router.push({ path: `/terminal/${serviceUuid}/${instanceUuid}/` });
     },
     async unlinkInstance(uuid, deleteFile = false) {
-      await this.$confirm(this.$t("notify.confirmDelContent"), this.$t("notify.confirmDelTitle"), {
-        confirmButtonText: this.$t("general.confirm"),
-        cancelButtonText: this.$t("general.cancel"),
-        type: "warning"
-      });
+      if (deleteFile) {
+        await this.$confirm(
+          this.$t("notify.confirmDelContent2"),
+          this.$t("notify.confirmDelTitle"),
+          {
+            confirmButtonText: this.$t("general.confirm2"),
+            cancelButtonText: this.$t("general.cancel"),
+            type: "warning"
+          }
+        );
+      } else {
+        await this.$confirm(
+          this.$t("notify.confirmDelContent"),
+          this.$t("notify.confirmDelTitle"),
+          {
+            confirmButtonText: this.$t("general.confirm"),
+            cancelButtonText: this.$t("general.cancel"),
+            type: "warning"
+          }
+        );
+      }
       await axios.request({
         method: "DELETE",
         url: API_INSTANCE,
@@ -627,7 +644,7 @@ export default {
     async batDelete(type) {
       if (type === 1) {
         await this.$confirm(
-          this.$t("notify.confirmBatchDelFileContent"),
+          this.$t("notify.confirmBatchDelContent"),
           this.$t("notify.confirmDelTitle"),
           {
             confirmButtonText: this.$t("general.confirm"),
@@ -637,10 +654,10 @@ export default {
         );
       } else {
         await this.$confirm(
-          this.$t("notify.confirmBatchDelContent"),
+          this.$t("notify.confirmDelContent2"),
           this.$t("notify.confirmDelTitle"),
           {
-            confirmButtonText: this.$t("general.confirm"),
+            confirmButtonText: this.$t("general.confirm2"),
             cancelButtonText: this.$t("general.cancel"),
             type: "warning"
           }

@@ -1,9 +1,5 @@
-<!--
-  Copyright (C) 2022 MCSManager <mcsmanager-dev@outlook.com>
--->
-
 <template>
-  <div>
+  <div v-menus:right="menus">
     <Panel>
       <template #title>
         <span id="fileManagerTop">
@@ -31,6 +27,11 @@
                   <FunctionComponent>
                     <el-button size="small" @click="toUpDir">
                       <i class="el-icon-pie-chart"></i> {{ $t("fileManager.upperDir") }}
+                    </el-button>
+                  </FunctionComponent>
+                  <FunctionComponent>
+                    <el-button size="small" @click="touch">
+                      <i class="el-icon-document-add"></i> {{ $t("fileManager.touch") }}
                     </el-button>
                   </FunctionComponent>
                   <FunctionComponent>
@@ -77,7 +78,7 @@
 
                 <FunctionComponent>
                   <el-upload
-                    action=""
+                    action
                     ref="fileForm"
                     :before-upload="handleUploadBefore"
                     :auto-upload="true"
@@ -116,7 +117,7 @@
               :page-size="pageParam.pageSize"
               :total="pageParam.total"
               @current-change="currentChange"
-            />
+            ></el-pagination>
           </div>
         </div>
 
@@ -141,6 +142,7 @@
           size="mini"
           ref="multipleTable"
           @selection-change="selectionChange"
+          @row-contextmenu="fileRightClick"
         >
           <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column prop="name" :label="$t('fileManager.name')" min-width="240">
@@ -201,7 +203,7 @@
 
         <div class="row-mt page-pagination">
           <div>
-            <el-link type="primary" :underline="false" href="javascript:void(0);">-</el-link>
+            <!-- <el-link type="primary" :underline="false" href="javascript:void(0);">-</el-link> -->
           </div>
           <el-pagination
             small
@@ -211,7 +213,7 @@
             :page-size="pageParam.pageSize"
             :total="pageParam.total"
             @current-change="currentChange"
-          />
+          ></el-pagination>
         </div>
       </template>
     </Panel>
@@ -231,17 +233,89 @@ import {
   API_FILE_MKDIR,
   API_FILE_MOVE,
   API_FILE_UPLOAD,
-  API_FILE_URL
+  API_FILE_URL,
+  API_FILE_TOUCH
 } from "@/app/service/common";
 import path from "path";
 import { parseforwardAddress, request } from "@/app/service/protocol";
 import SelectUnzipCode from "./selectUnzipCode";
 import { API_FILE_STATUS } from "../../service/common";
-
-export default {
-  components: { Panel, SelectUnzipCode },
+import { defineComponent } from "vue";
+import { directive } from "vue3-menus";
+export default defineComponent({
+  components: {
+    Panel,
+    SelectUnzipCode
+  },
+  directives: {
+    menus: directive
+  },
   data() {
     return {
+      menus: [
+        {
+          label: window.$t("CommonText.020"),
+          click: () => {
+            this.toUpDir();
+          }
+        },
+        {
+          label: window.$t("CommonText.021"),
+          tip: "",
+          click: () => {
+            this.copy();
+          }
+        },
+        {
+          label: window.$t("CommonText.022"),
+          tip: "",
+          click: () => {
+            this.paste();
+          }
+        },
+        {
+          label: window.$t("CommonText.023"),
+          tip: "",
+          click: () => {
+            this.move();
+          }
+        },
+        {
+          label: window.$t("CommonText.024"),
+          tip: "",
+          click: () => {
+            this.rename();
+          }
+        },
+        {
+          label: window.$t("CommonText.025"),
+          tip: "",
+          click: () => {
+            this.deleteFiles();
+          }
+        },
+        {
+          label: window.$t("CommonText.026"),
+          tip: "",
+          click: () => {
+            this.mkdir();
+          }
+        },
+        {
+          label: window.$t("CommonText.027"),
+          tip: "",
+          click: () => {
+            this.compress(1);
+          }
+        },
+        {
+          label: window.$t("CommonText.028"),
+          tip: "",
+          click: () => {
+            this.compress(2);
+          }
+        }
+      ],
       serviceUuid: this.$route.params.serviceUuid,
       instanceUuid: this.$route.params.instanceUuid,
       multipleSelection: [],
@@ -257,16 +331,13 @@ export default {
         pageSize: 30,
         total: 1
       },
-
       paramPath: this.$route.query.path,
-
       // Move, copy, paste the required data of the file
       tmpFile: {
         tmpFileNames: null,
         tmpOperationMode: -1,
         tmpDir: null
       },
-
       statusInfo: {},
       statusRequestTask: null
     };
@@ -288,11 +359,16 @@ export default {
   },
   methods: {
     back() {
-      this.$router.push({ path: `/terminal/${this.serviceUuid}/${this.instanceUuid}/` });
+      this.$router.push({
+        path: `/terminal/${this.serviceUuid}/${this.instanceUuid}/`
+      });
     },
     async refresh() {
       await this.render();
-      this.$message({ message: this.$t("general.refreshFinish"), type: "success" });
+      this.$message({
+        message: this.$t("general.refreshFinish"),
+        type: "success"
+      });
     },
     async render() {
       await this.list(this.currentDir);
@@ -303,7 +379,10 @@ export default {
         const p = path.normalize(path.join(this.currentDir, name));
         await this.list(p);
       } catch (error) {
-        this.$message({ message: this.$t("fileManager.noSee"), type: "error" });
+        this.$message({
+          message: this.$t("fileManager.noSee"),
+          type: "error"
+        });
       }
     },
     // return to the upper directory
@@ -311,12 +390,14 @@ export default {
       const p = path.normalize(path.join(this.currentDir, "../"));
       await this.list(p);
     },
-
     // Directory next page or previous page event
     currentChange() {
       this.toDir(".");
     },
-
+    fileRightClick(row) {
+      this.multipleSelection = [];
+      this.multipleSelection.push(row);
+    },
     // Directory List function
     async list(cwd = ".") {
       this.$route.query.path = cwd;
@@ -338,14 +419,15 @@ export default {
         this.pageParam.total = total;
         this.pageParam.page = page + 1;
       } catch (error) {
-        this.$message({ message: error, type: "error" });
+        this.$message({
+          message: error,
+          type: "error"
+        });
       }
     },
-
     // table data processing
     tableFilter(filesData) {
       this.files = [];
-
       for (const iterator of filesData) {
         const typeText =
           iterator.type == 1 ? this.$t("fileManager.file") : this.$t("fileManager.directory");
@@ -362,19 +444,16 @@ export default {
         });
       }
     },
-
     // table multi-select function
     selectionChange(v) {
       this.multipleSelection = v;
     },
-
     // table file data to name list
     multipleFileToNames(arr = []) {
       const res = [];
       arr.forEach((v) => res.push(v.name));
       return res;
     },
-
     fileNamesToPaths(fileNames = []) {
       const targets = [];
       fileNames.forEach((v) => {
@@ -382,7 +461,6 @@ export default {
       });
       return targets;
     },
-
     multipleFileJoinPath(arr = [], dir = null) {
       const res = [];
       arr.forEach((name) => {
@@ -390,7 +468,6 @@ export default {
       });
       return res;
     },
-
     // rename the file
     async rename() {
       try {
@@ -420,29 +497,39 @@ export default {
             targets: [[oldFilePath, newFilePath]]
           }
         });
-        this.$message({ message: this.$t("fileManager.setSuccess"), type: "success" });
+        this.$message({
+          message: this.$t("fileManager.setSuccess"),
+          type: "success"
+        });
         this.render();
       } catch (error) {
         if (error && error.message)
-          this.$message({ message: `Error: ${error.message}`, type: "error" });
+          this.$message({
+            message: `Error: ${error.message}`,
+            type: "error"
+          });
       }
     },
-
     // copy the file
     async copy() {
       this.tmpFile.tmpFileNames = this.multipleFileToNames(this.multipleSelection);
       this.tmpFile.tmpDir = this.currentDir;
       this.tmpFile.tmpOperationMode = 1;
-      this.$message({ message: this.$t("fileManager.fileCopied"), type: "info" });
+      this.$message({
+        message: this.$t("fileManager.fileCopied"),
+        type: "info"
+      });
     },
     // move the file
     async move() {
       this.tmpFile.tmpFileNames = this.multipleFileToNames(this.multipleSelection);
       this.tmpFile.tmpDir = this.currentDir;
       this.tmpFile.tmpOperationMode = 2;
-      this.$message({ message: this.$t("fileManager.fileMoved"), type: "info" });
+      this.$message({
+        message: this.$t("fileManager.fileMoved"),
+        type: "info"
+      });
     },
-
     // Paste the file (send different commands according to the mode)
     async paste() {
       try {
@@ -456,7 +543,6 @@ export default {
             path.normalize(path.join(this.currentDir, v))
           ]);
         });
-
         if (this.tmpFile.tmpOperationMode === 1) {
           await request({
             method: "POST",
@@ -483,17 +569,54 @@ export default {
             }
           });
         }
-        this.$message({ message: this.$t("fileManager.setSuccess"), type: "success" });
+        this.$message({
+          message: this.$t("fileManager.setSuccess"),
+          type: "success"
+        });
         this.render();
       } catch (error) {
-        this.$message({ message: `Error :${error.message}`, type: "error" });
+        this.$message({
+          message: `Error :${error.message}`,
+          type: "error"
+        });
       } finally {
         this.tmpFile.tmpOperationMode = -1;
         this.tmpFile.tmpFileNames = null;
         this.tmpFile.tmpDir = null;
       }
     },
-
+    // create a new file
+    async touch(){
+      const { value } = await this.$prompt(this.$t("fileManager.newFileName"), undefined, {
+        confirmButtonText: this.$t("general.confirm"),
+        cancelButtonText: this.$t("general.cancel")
+      });
+      try {
+        if (!value) throw new Error(this.$t("fileManager.inputValidValues"));
+        const p = path.normalize(path.join(this.currentDir, value));
+        await request({
+          method: "POST",
+          url: API_FILE_TOUCH,
+          params: {
+            remote_uuid: this.serviceUuid,
+            uuid: this.instanceUuid
+          },
+          data: {
+            target: p
+          }
+        });
+        this.$message({
+          message: this.$t("notify.createSuccess"),
+          type: "success"
+        });
+        this.render();
+      } catch (err) {
+        this.$message({
+          message: err,
+          type: "error"
+        });
+      }
+    },
     // create a new directory
     async mkdir() {
       const { value } = await this.$prompt(this.$t("fileManager.newDirName"), undefined, {
@@ -514,13 +637,18 @@ export default {
             target: p
           }
         });
-        this.$message({ message: this.$t("notify.createSuccess"), type: "success" });
+        this.$message({
+          message: this.$t("notify.createSuccess"),
+          type: "success"
+        });
         this.render();
       } catch (err) {
-        this.$message({ message: err, type: "error" });
+        this.$message({
+          message: err,
+          type: "error"
+        });
       }
     },
-
     // edit the file
     async toEditFilePage(row) {
       const target = path.normalize(path.join(this.currentDir, row.name));
@@ -531,7 +659,6 @@ export default {
         }
       });
     },
-
     // Delete Files
     async deleteFiles() {
       await this.$confirm(this.$t("fileManager.confirmDelFile"), this.$t("general.warn"), {
@@ -543,7 +670,10 @@ export default {
         const fileNames = this.multipleFileToNames(this.multipleSelection);
         const targets = this.fileNamesToPaths(fileNames);
         if (fileNames.length === 0)
-          return this.$message({ message: this.$t("fileManager.selectAFile"), type: "error" });
+          return this.$message({
+            message: this.$t("fileManager.selectAFile"),
+            type: "error"
+          });
         await request({
           method: "DELETE",
           url: API_FILE_URL,
@@ -561,18 +691,23 @@ export default {
         });
         this.render();
       } catch (error) {
-        this.$message({ message: `Error: ${error}`, type: "error" });
+        this.$message({
+          message: `Error: ${error}`,
+          type: "error"
+        });
         this.render();
       }
     },
-
     // compress/decompress the file
     async compress(type) {
       const cwd = this.currentDir;
       try {
         const fileNames = this.multipleFileToNames(this.multipleSelection);
         if (fileNames.length === 0)
-          return this.$message({ message: this.$t("fileManager.selectAFile"), type: "error" });
+          return this.$message({
+            message: this.$t("fileManager.selectAFile"),
+            type: "error"
+          });
         const targets = this.fileNamesToPaths(fileNames);
         if (type === 1) {
           //compression
@@ -603,13 +738,17 @@ export default {
               code: "utf-8" // The decompression file function module does not support other encodings temporarily
             }
           });
+
           this.$notify({
             title: this.$t("fileManager.zipTaskStart"),
             message: this.$t("fileManager.zipTaskStartInfo")
           });
         } else {
           if (fileNames.length !== 1)
-            return this.$message({ message: this.$t("fileManager.onlyUnzipOne"), type: "error" });
+            return this.$message({
+              message: this.$t("fileManager.onlyUnzipOne"),
+              type: "error"
+            });
           // decompress
           const text = await this.$prompt(
             this.$t("fileManager.inputUnzipDirName"),
@@ -643,10 +782,12 @@ export default {
           });
         }
       } catch (error) {
-        this.$message({ message: error.message || error, type: "error" });
+        this.$message({
+          message: error.message || error,
+          type: "error"
+        });
       }
     },
-
     // file is selected, start uploading
     async selectedFile(file) {
       try {
@@ -667,15 +808,20 @@ export default {
             this.percentComplete = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           }
         });
-        this.$message({ message: this.$t("fileManager.uploadOk"), type: "success" });
+        this.$message({
+          message: this.$t("fileManager.uploadOk"),
+          type: "success"
+        });
         await this.refresh();
         // this.$refs.fileForm.reset();
         this.percentComplete = -1;
       } catch (error) {
-        this.$message({ message: `Error: ${error}`, type: "error" });
+        this.$message({
+          message: `Error: ${error}`,
+          type: "error"
+        });
       }
     },
-
     // upload files
     async upload() {
       const result = await axios.get(API_FILE_UPLOAD, {
@@ -707,7 +853,6 @@ export default {
       const password = cfg.password;
       window.open(`${addr}/download/${password}/${fileName}`);
     },
-
     async requestFileManagerStatus() {
       const status = await request({
         method: "GET",
@@ -719,15 +864,18 @@ export default {
       });
       this.statusInfo = status;
     },
-
     async handleUploadBefore(v) {
       await this.upload();
       await this.selectedFile(v);
       return new Promise((o, j) => j(false));
     }
   }
-};
+});
 </script>
+
+<!--
+  Copyright (C) 2022 MCSManager <mcsmanager-dev@outlook.com>
+-->
 
 <style scoped>
 .filemanager-item-dir {

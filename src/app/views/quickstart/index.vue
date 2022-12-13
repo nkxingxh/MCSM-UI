@@ -28,7 +28,7 @@
             </QuickStartButton>
           </ItemGroup>
 
-          <div v-if="item.extra" style="text-align: center">
+          <div v-if="item.extra && isCN()" style="text-align: center">
             <el-link type="primary" @click="item.fn(item.value)">
               {{ item.extra.title }}
             </el-link>
@@ -37,7 +37,7 @@
       </el-row>
     </div>
 
-    <div class="task-container" v-if="selectedHostUuid">
+    <div class="task-container" v-if="selectedHostUuid && isCN()">
       <div>
         <h4>{{ $t("views.quickstart_index.001") }}</h4>
       </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="task-btn" v-for="(item, index) in taskList" :key="index">
           <span>
-            <el-link type="primary">
+            <el-link type="primary" v-if="item.detail && item.detail.instanceConfig">
               {{ index + 1 }}. {{ item.detail.instanceConfig.nickname }}
             </el-link>
             <el-link
@@ -55,8 +55,9 @@
               v-if="item.status === 0"
               style="margin-left: 4px"
               @click="toInstance(selectedHostUuid, item.detail.instanceUuid)"
-              >{{ $t("views.quickstart_index.003") }}</el-link
             >
+              {{ $t("views.quickstart_index.003") }}
+            </el-link>
           </span>
           <span style="margin-left: 8px">
             <span v-if="item.status === 0">
@@ -64,8 +65,8 @@
             </span>
             <span v-else-if="item.status === 1">
               <el-tag type="primary" size="mini">
-                <i class="el-icon-loading"></i>{{ $t("CommonText.002") }}</el-tag
-              >
+                <i class="el-icon-loading"></i>&nbsp;{{ $t("CommonText.002") }}
+              </el-tag>
             </span>
             <span v-else>
               <el-tag type="danger" size="mini">{{ $t("CommonText.003") }}</el-tag>
@@ -90,6 +91,7 @@ import QuickStartButton from "@/components/SelectBlock";
 import { request } from "@/app/service/protocol";
 import { API_INSTANCE_ASYNC_QUERY, API_SERVICE } from "../../service/common";
 import McPreset from "./McPreset";
+import { isCN } from "@/app/utils/lang";
 export default {
   components: {
     QuickStartButton,
@@ -135,12 +137,6 @@ export default {
       ],
       minecraftCreateMethod: [
         {
-          title: window.$t("views.quickstart_index.005"),
-          subTitle: window.$t("views.quickstart_index.006"),
-          value: 1,
-          fn: this.mcSelectCreateMethod
-        },
-        {
           title: window.$t("views.quickstart_index.007"),
           subTitle: window.$t("views.quickstart_index.008"),
           value: 2,
@@ -158,6 +154,15 @@ export default {
       this.displayType = 2;
     }
 
+    if (isCN()) {
+      this.minecraftCreateMethod.splice(0, null, {
+        title: window.$t("views.quickstart_index.005"),
+        subTitle: window.$t("views.quickstart_index.006"),
+        value: 1,
+        fn: this.mcSelectCreateMethod
+      });
+    }
+
     await this.initRemoteHost();
   },
 
@@ -166,6 +171,7 @@ export default {
   },
 
   methods: {
+    isCN,
     async initRemoteHost() {
       this.remoteObjects = await request({
         method: "GET",
@@ -294,7 +300,10 @@ export default {
     // 前往控制台
     toInstance(remoteUuid, instanceUuid) {
       this.$router.push({
-        path: `/terminal/${remoteUuid}/${instanceUuid}/`
+        path: `/terminal/${remoteUuid}/${instanceUuid}/`,
+        query: {
+          network_tip: 1
+        }
       });
     }
   }
@@ -316,6 +325,7 @@ export default {
   width: 100%;
 }
 .task-container {
+  color: #767676;
   text-align: left;
   margin-top: 30px;
   width: 300px;

@@ -27,5 +27,8 @@ module.exports = {
       }
     }
   },
-  productionSourceMap: false
+  productionSourceMap: false,
+  configureWebpack: {
+    plugins: []
+  }
 };

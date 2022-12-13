@@ -53,6 +53,11 @@
             <!-- <el-input size="small" v-model="scope.row.remarks"></el-input> -->
           </template>
         </el-table-column>
+        <el-table-column label="UID" width="100">
+          <template #default="scope">
+            <el-input v-model="scope.row.uuid" placeholder="" size="small" readonly></el-input>
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('services.platform')" width="100">
           <template #default="scope">
             <div v-if="scope.row.system">
@@ -111,7 +116,7 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('general.operate')" style="text-align: center" width="280px">
+        <el-table-column :label="$t('general.operate')" style="text-align: center" width="300px">
           <template #default="scope">
             <el-button size="mini" @click="linkService(scope.row, true)">
               {{ scope.row.available ? $t("services.update") : $t("services.connect") }}
@@ -160,7 +165,17 @@
           <div class="sub-title-info">
             {{ $t("services.keySub") }}
             <br />
-            <a href="https://docs.mcsmanager.com/" class="color-blue">
+            {{ $t("services.keySub2") }}
+            <br />
+            <a href="https://docs.mcsmanager.com/" target="_blank" class="color-blue" v-iszh>
+              {{ $t("services.getKey") }}
+            </a>
+            <a
+              href="   https://github.com/MCSManager/MCSManager/wiki/Connect-to-a-Remote-Daemon"
+              target="_blank"
+              class="color-blue"
+              v-isen
+            >
               {{ $t("services.getKey") }}
             </a>
           </div>

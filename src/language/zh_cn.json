@@ -5,11 +5,46 @@
     "003": "安装失败",
     "004": "刷新",
     "005": "备注：",
-    "006": "介绍",
+    "006": "说明",
     "007": "备注",
     "008": "操作",
     "009": "使用",
-    "010": "安装完毕"
+    "010": "安装完毕",
+    "011": "简体中文",
+    "012": "联机方式",
+    "013": "状态：",
+    "014": "未启用",
+    "015": "运行中",
+    "016": "启动错误",
+    "017": "启用",
+    "018": "停止",
+    "019": "使用教程",
+    "020": "返回上层",
+    "021": "复制",
+    "022": "粘贴",
+    "023": "剪切",
+    "024": "重命名",
+    "025": "删除",
+    "026": "新建目录",
+    "027": "压缩",
+    "028": "解压",
+    "029": "主机",
+    "030": "容器",
+    "031": "隧道 ID",
+    "032": "编辑中",
+    "033": "已保存",
+    "034": "跳转行",
+    "035": "自动换行",
+    "036": "自动补全",
+    "037": "只读模式",
+    "038": "选中多行",
+    "039": "显示行号",
+    "040": "提示",
+    "041": "确定",
+    "042": "取消",
+    "043": "行",
+    "044": "安装错误",
+    "045": "第三方"
   },
   "general": {
     "search": "搜索",
@@ -23,6 +58,7 @@
     "confirm": "确定",
     "cancel": "取消",
     "delete": "删除",
+    "read": "查看",
     "deleteFinish": "已删除",
     "pleaseSelect": "请选择",
     "refresh": "刷新",
@@ -41,7 +77,8 @@
     "success": "操作成功",
     "config": "配置",
     "operation": "操作",
-    "moreOperation": "更多操作"
+    "moreOperation": "更多操作",
+    "confirm2": "我清楚后果并确定操作"
   },
   "root": {
     "title": "处理中...",
@@ -130,8 +167,8 @@
     "start": "开启",
     "stop": "关闭",
     "kill": "终止",
-    "remove": "移除",
-    "delete": "删除",
+    "remove": "删除",
+    "delete": "彻底删除",
     "selectRemoteError": "未选择任何远程节点",
     "selectRemoteTitle": "请在左上方的下拉框中选择远程节点",
     "selectRemoteInfo": "默认可选择 localhost 远程节点，远程节点可以部署在任意主机上，帮助您快速管理多个主机并且分布式部署。",
@@ -155,8 +192,8 @@
     "card": {
       "editConfig": "编辑配置",
       "controlPanel": "控制面板",
-      "remove": "移除实例",
-      "delete": "删除实例"
+      "remove": "删除实例",
+      "delete": "彻底删除"
     },
     "table": {
       "instancesList": "实例列表",
@@ -284,8 +321,7 @@
     "cwdInfo": "实例运行的工作目录，可填绝对路径与相对路径",
     "cwdExample": "例如: D:/MyServers/0001",
     "updateCmd": "更新/安装程序文件命令",
-    "updateCmdInfo": "当用户执行更新/安装操作时，将会执行此命令，${mcsm_workspace} 代表工作目录，为空则不提供此功能",
-    "updateCmdExample": "例如: \"D:/SteamCMD/steamcmd.exe\" +login anonymous +force_install_dir \"${mcsm_workspace}\" \"+app_update 380870 validate\" +quit",
+    "updateCmdInfo": "当用户执行更新/安装操作时，将会执行此命令，{t} 代表工作目录，为空则不提供此功能",
     "ie": "终端输入编码",
     "ieInfo": "命令发送编码，重启实例生效",
     "oe": "终端输出编码",
@@ -373,6 +409,7 @@
     "MC Bukkit": "MC Bukkit",
     "MC Geyser": "MC Geyser",
     "MC MCDR": "MC MCDR",
+    "MC Velocity": "MC Velocity",
     "Web Shell": "Web Shell"
   },
   "terminal": {
@@ -425,16 +462,19 @@
       "autoStartInfo": "只要远程节点（远程节点）运行，就自动发起一次启动实例操作。<br />如果将远程节点开机自启则可用于开机自启实例。"
     },
     "unavailableTerminal": {
-      "title": "无法与远程节点建立连接",
+      "title": "连接节点错误",
       "browserCannotConnect": "浏览器无法连接到",
       "browserCannotConnect2": "浏览器无法与远程节点建立连接",
       "maybe": "可能是您未开放远程节点的端口导致，或是使用了内网地址的缘故",
       "solution": "可能的解决方案",
-      "solutions": "<li>确保远程节点的地址是公网地址，且远程节点端口已经开放。</li> <li> 若有反向代理，FRP，HTTPS 等，请采用 wss:// 协议连接， <br /> 并且远程节点端地址也需要 HTTPS，WSS 支持。 </li> <li> 前往 <a href=\"https://docs.mcsmanager.com\" target=\"_blank\" rel=\"noopener noreferrer\" >https://docs.mcsmanager.com</a > 了解更多 </li>"
+      "solutions": "<li>确保远程节点使用的地址是公网地址，且远程节点端口已经开放。</li><li>如果使用内网映射或其他网络代理，则必须确保你的浏览器和面板都要能够连接到节点。</li><li>若有 HTTPS 等，请采用 wss:// 协议连接节点。</li><li>前往 docs.mcsmanager.com 了解更多</li>"
     },
     "cantConnectTerm": "无法与终端建立连接",
     "cantSendCmdBecauseData": "无法执行命令，数据流通道不可用",
-    "cantSendCmdBecauseNotRun": "无法执行命令，服务器未开启"
+    "cantSendCmdBecauseNotRun": "无法执行命令，服务器未开启",
+    "dockerPort": "可用端口",
+    "limit": "资源限制",
+    "openfrp": "内网映射"
   },
   "processConfig": {
     "title": "配置列表组",
@@ -474,7 +514,9 @@
     "EnterNewline": "回车换行符（\\r\\n）",
     "ioCode": "输入输出编码",
     "ioCodeInfo": "如果控制台中的内容出现乱码，您可以尝试修改此编码解决问题。",
-    "setUpdate": "实例配置已更新，部分配置可能需要重启实例生效"
+    "setUpdate": "实例配置已更新，部分配置可能需要重启实例生效",
+    "fontSize": "终端字体大小",
+    "fontSizeInfo": "默认 13px，更改后刷新网页生效"
   },
   "schedule": {
     "addSchedule": "新增计划任务",
@@ -528,6 +570,7 @@
   "fileManager": {
     "title": "文件管理",
     "upperDir": "上层目录",
+    "touch": "新建文件",
     "mkdir": "新建目录",
     "zip": "压缩",
     "unzip": "解压",
@@ -553,6 +596,7 @@
     "fileCopied": "文件已选择，使用粘贴即可复制到其他目录",
     "fileMoved": "文件已选择，使用粘贴即可移动到其他目录",
     "cantCopy": "未复制或剪切任何文件，无法粘贴",
+    "newFileName": "新文件名",
     "newDirName": "新建目录名",
     "confirmDelFile": "确定要删除选中的文件吗？",
     "selectAFile": "请至少选择一个文件",
@@ -606,7 +650,7 @@
     "newUserDialog": {
       "inputSth": "请输入内容...",
       "userPasswd": "用户密码",
-      "userPasswdInfo": "必填，9 到 36 个字符，不支持中文，只限于字母，数字和符号",
+      "userPasswdInfo": "必填，9 到 36 个字符，必须包含大小写字母和数字",
       "inputPasswd": "请输入密码"
     },
     "ps": "注意事项",
@@ -714,7 +758,8 @@
     "inputNewRemark": "请输入新的备注内容",
     "updateRemarkSuccess": "更新备注信息成功",
     "inputNewKey": "请输入新密钥，设置后将自动尝试连接",
-    "key": "密钥"
+    "key": "密钥",
+    "keySub2": "在 Linux 下，密钥一般在 /opt/mcsmanager/daemon/data/Config/global.json 中"
   },
   "container": {
     "remoteList": "远程节点列表",
@@ -833,10 +878,8 @@
     "attention": "注意事项",
     "attentionInfo": "这些配置设置需要一部分专业知识，您可以根据您的硬件设备来大概猜测哪些值适合您。<br />一般情况下，默认值可以满足个人日常的使用场景，如果规模一旦更大，对硬件的要求更高，为了不过分损失用户体验，一个合适的阈值是十分重要的。",
     "about": "关于",
-    "aboutTitle": "软件根据 <a target='black' href='https://github.com/MCSManager/MCSManager-Daemon/blob/master/LICENSE'>Apache-2.0</a> 开源软件协议发行<br />版权所有 MCSManager 开发团队",
-    "aboutTitleInfo": "此协议准许每个人都可以复制和修改代码副本，并且可以对使用者收取服务费用。<br />",
-    "closedSource": "闭源商业许可证",
-    "closedSourceInfo": "若您想二次开发并且闭源使用于任何活动（包括但不限于商业，个人）。",
+    "aboutTitle": "软件根据 <a target='black' href='https://github.com/MCSManager/MCSManager-Daemon/blob/master/LICENSE'>Apache-2.0</a> 开源软件协议发行。",
+    "aboutTitleInfo": "此协议准许每个人都可以复制和修改代码副本，并且可以对使用者收取服务费用",
     "learnMore": "了解更多",
     "userAgreement": "用户协议",
     "sponsorList": "开源项目赞助名单",
@@ -848,16 +891,7 @@
       "light": "浅色",
       "dark": "深色"
     },
-    "aboutTheme": {
-      "title": "关于主题",
-      "info": "该主题由 Lazy 开发",
-      "info2": "如果你在使用主题过程中遇到任何问题或发现错误，可反馈到我的邮箱：",
-      "blog": "博客发布地址：",
-      "goLink": "点击前往",
-      "qrCode": "赞助二维码：",
-      "ver": "当前主题版本：",
-      "checkVer": "检查更新"
-    }
+    "aboutTitle2": "你可以复制或修改源代码，但必须保留所有版权声明文字和并附上 Powered by MCSManager，不得删除。"
   },
   "home": {
     "totalInstance": "实例总计",
@@ -925,12 +959,16 @@
     "ohhhInfo": "最后，您是第一次使用此软件吗？",
     "firstTime": "首次使用",
     "oldUSer": "老用户",
-    "adminOK": "管理员已创建"
+    "adminOK": "管理员已创建",
+    "stoppedServiceTitle": "正在维护中",
+    "stoppedServiceContent": "很抱歉，无法获取最新预设整合包列表，可能是您的网络问题或服务器正在维护中。",
+    "firstTimeInfo": "我们将引导你使用并部署你的应用程序。",
+    "oldUSerInfo": "以更专业化的界面供你使用。"
   },
   "notify": {
     "connectDaemonError": "访问远程节点异常",
     "confirmDelTitle": "最终确认",
-    "confirmDelContent": "确定要进行移除/删除吗？",
+    "confirmDelContent": "确定移除此实例吗？此操作不会删除实例的本地文件",
     "confirmBatchDelContent": "确定要进行批量移除吗？此操作不会删除实例实际文件，只会删除实例",
     "confirmBatchDelFileContent": "确定要进行批量删除吗？此操作将会一并删除文件",
     "editSuccess": "修改成功",
@@ -945,7 +983,8 @@
     "stopCmdSend": "关闭命令已发出",
     "killCmdSend": "终止命令已发出",
     "dateLoadError": "数据加载出错",
-    "cmdSendInfo": "已成功向各个远程主机发布命令，具体操作可能略有延时，请稍等一段时间后查看结果"
+    "cmdSendInfo": "已成功向各个远程主机发布命令，具体操作可能略有延时，请稍等一段时间后查看结果",
+    "confirmDelContent2": "确定要删除此实例和文件吗？此操作将会删除实例目录的所有文件，请谨慎操作"
   },
   "router": {
     "panel": "控制面板",
@@ -1043,14 +1082,70 @@
       "004": "Java 版本要求",
       "005": "整合包大小",
       "006": "约{0}MB",
-      "007": "快速安装服务由 独醉科技 提供下载支持。",
+      "007": "快速安装服务由独醉科技提供文件下载支持。",
       "008": "正在下载文件...",
       "009": "实际所需时间与网速，处理器运行速度有关，请务必耐心等待。",
       "010": "大功告成！接下来您只需要进入“实例控制台”，轻点“启动实例”即可。",
       "011": "前往实例控制台",
       "012": "测试服务器",
       "013": "已安装完毕",
-      "014": "正在安装中"
+      "014": "正在安装中",
+      "eulaReadTitle": "安装预设整合包将视作你已同意并阅读 Minecraft 最终用户协议：",
+      "015": "可能是因为网络不通畅或服务器正在维护中，请等待一段时间后再进行尝试，或使用其他安装包尝试。",
+      "016": "请输入新建服务器的名字："
+    },
+    "Settings": {
+      "001": "预设资源下载点",
+      "002": "快速安装服务器时的下载源列表，您可以通过更改此地址实现自定义服务端预设下载站。"
+    },
+    "Terminal_TermSetting": {
+      "001": "终端字体大小",
+      "002": "默认12px，更改后刷新网页生效，更改此项可能导致仿真终端文字被遮挡。"
+    },
+    "FileManagerEditor": {
+      "001": "编辑器设置",
+      "002": "高亮当前行",
+      "003": "显示隐藏字符",
+      "004": "编辑器主题",
+      "005": "快捷键提示",
+      "006": "跳转到指定行",
+      "007": "格式不正确",
+      "008": "已跳转到第 ",
+      "009": "你还未保存文件, 是否继续返回?"
     }
+  },
+  "components": {
+    "NetworkTip": {
+      "001": "服务器公网IP联机",
+      "002": "您必须拥有一台公网IP的服务器，才可以使用此方式联网。",
+      "003": "家庭网络联机（仅Windows）",
+      "004": "使用由第三方提供的分布式虚拟局域网服务进行联机，实现家庭网络接入。",
+      "005": "服务器 IP 地址：{0}",
+      "006": "当您选择使用公网IP时，MCSManager 无需进行任何操作，您只需使用公网 IP 地址和您的软件默认端口号即可让其他人连接您的服务器，列如 {0}:25565。",
+      "007": "注意：此处获取的公网 IP 不一定正确。",
+      "008": "通过 OpenFrp 网络映射来让其他人加入您的服务器。",
+      "009": "网络映射成功后，我们将会告知您的IP地址，您的朋友只需使用此IP地址即可加入您的服务器。",
+      "010": "IP 地址：",
+      "011": "访问密钥",
+      "012": "密钥是使用 FRP 网络的必备钥匙，您可以点击底部的“获取密钥”来获得。",
+      "013": "请输入密钥，列如：3vz4776d72b28sfw13eefasx9eb01548",
+      "014": "OpenFrp 官网",
+      "015": "请填写索引码",
+      "016": "Hi~，第一次部署服务器吗？请选择一个网络连接方式吧！",
+      "017": "我清楚如何联机，不需要任何教程",
+      "018": "了解如何让其他人连接到应用程序服务",
+      "019": "保存后启动实例时会自动运行映射程序，重启实例生效。",
+      "020": "如需再次打开本窗口，可以前往“实例配置”并点击右下方的“联机方式”按钮。",
+      "021": "使用 OpenFrp 内网穿透服务",
+      "022": "可能包含付费内容，由第三方供应商为您提供家庭网络联机方案。"
+    }
+  },
+  "dockerInfoDialog": {
+    "memory": "最大内存：",
+    "network": "网络模式：",
+    "imageName": "镜像名：",
+    "containerName": "容器名：",
+    "subtitle": "这里显示管理员分配给您的这个实例的资源信息。",
+    "title": "容器资源限制信息"
   }
 }
