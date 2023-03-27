@@ -113,6 +113,11 @@
     color: #e4e4e4;
   }
 
+  .el-button.is-disabled, .el-button.is-disabled:focus, .el-button.is-disabled:hover {
+    background-color: unset;
+    filter: brightness(0.6);
+  }
+
   .el-button--danger.is-plain {
     background: #2e1b1b;
   }
@@ -226,6 +231,18 @@
   .el-dropdown-link:hover {
     background-color: unset !important;
     backdrop-filter: brightness(0.8) !important;
+  }
+
+  .dir-node-back-btn {
+    border: 1px solid #606061 !important;
+  }
+
+  .dir-node-container {
+    border: 1px solid #606061 !important;
+  }
+
+  .dir-node:hover {
+    background-color: #2d2d2d !important;
   }
 }
 
